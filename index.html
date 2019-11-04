@@ -23,36 +23,18 @@ center: [-122.419, 37.779], // starting position [lng, lat]
 zoom: 9 // starting zoom
 });
 
+map.addSource('costar', {
+  type: 'geojson',
+  data: 'https://github.com/seanmc59/seanmc59.github.io/blob/master/costar.json'
+});
+
 map.on('load', function () {
     map.addLayer({
     "id": "points",
-    "type": "symbol",
+    "type": "circle",
     "source": {
-    "type": "geojson",
-    "data": {
-    "type": "FeatureCollection",
-    "features": [{
-    "type": "Feature",
-    "geometry": {
-    "type": "Point",
-    "coordinates": [-77.03238901390978, 38.913188059745586]
-    },
-    "properties": {
-    "title": "Mapbox DC",
-    "icon": "monument"
-    }
-    }, {
-    "type": "Feature",
-    "geometry": {
-    "type": "Point",
-    "coordinates": [-122.414, 37.776]
-    },
-    "properties": {
-    "title": "Mapbox SF",
-    "icon": "harbor"
-    }
-    }]
-    }
+      "type": "geojson",
+      "data": "costar"
     },
     "layout": {
     "icon-image": "{icon}-15",
