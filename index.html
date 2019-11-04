@@ -18,27 +18,11 @@ body { margin:0; padding:0; }
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2Vhbm1jNTkiLCJhIjoiY2sya2xsOWJjMXQ3cjNobzFtNHIyZnRvaiJ9._fhW0VjqPDGQ4-ekkyUdbg';
 var map = new mapboxgl.Map({
 container: 'map', // container id
-style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+style: 'mapbox://styles/:seanmc59/:costarsales', // stylesheet location
 center: [-122.419, 37.779], // starting position [lng, lat]
 zoom: 9 // starting zoom
 });
 
-map.addSource('costar', {
-  type: 'geojson',
-  data: 'https://github.com/seanmc59/seanmc59.github.io/blob/master/costar.json'
-});
-
-map.on('load', function () {
-    map.addLayer({
-    "id": "points",
-    "type": "circle",
-    "source": {
-      "type": "geojson",
-      "data": "costar"
-    },
-    "circle-color": "#fbb03b"
-    });
-});
 </script>
 
 </body>
