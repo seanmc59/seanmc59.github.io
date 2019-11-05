@@ -57,13 +57,23 @@ body { margin:0; padding:0; }
 <div id='map'></div>
 
 <script>
+
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2Vhbm1jNTkiLCJhIjoiY2sya2xsOWJjMXQ3cjNobzFtNHIyZnRvaiJ9._fhW0VjqPDGQ4-ekkyUdbg';
+
+// Set Bounds
+var bounds = [
+  [-126.132, 26.253], // Southwest Coordinates
+  [-61.080, 50.344] // Northeast Coordinates
+];
+
 var map = new mapboxgl.Map({
 container: 'map', // container id
 style: 'mapbox://styles/seanmc59/ck2kmf0g21vwe1crtfmq3w9ns', // stylesheet location
 center: [-122.419, 37.779], // starting position [lng, lat]
-zoom: 9 // starting zoom
+zoom: 9, // starting zoom
+maxBounds: bounds
 });
+
 var link = document.createElement('a');
 link.href = '#';
 link.textContent = 'CoStar';
@@ -85,7 +95,8 @@ link.onclick = function (e) {
     map.setLayoutProperty(clickedLayer4, 'visibility', 'none');
     this.className = '';
     }
-    else {
+
+  else {
       this.className = 'active';
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
       map.setLayoutProperty(clickedLayer2, 'visibility', 'visible');
@@ -93,6 +104,7 @@ link.onclick = function (e) {
       map.setLayoutProperty(clickedLayer4, 'visibility', 'visible');
     }
   };
+
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 
@@ -115,13 +127,15 @@ link.onclick = function (e) {
     map.setLayoutProperty(clickedLayer3, 'visibility', 'none');
     this.className = '';
     }
-    else {
+
+  else {
       this.className = 'active';
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
       map.setLayoutProperty(clickedLayer2, 'visibility', 'visible');
       map.setLayoutProperty(clickedLayer3, 'visibility', 'visible');
     }
   };
+
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 </script>
