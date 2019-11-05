@@ -70,19 +70,27 @@ link.textContent = 'CoStar';
 link.onclick = function (e) {
   var clickedLayer = 'costar-mapbox-2xiu2s';
   var clickedLayer2 = 'cbsa distance radii';
+  var clickedLayer3 = 'cbsa-simplified-zoning-attr-a90vtv';
+  var clickedLayer4 = 'cbsa-zoning-centroids-6z5jey';
   e.preventDefault();
   e.stopPropagation();
   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
   var visibility2 = map.getLayoutProperty(clickedLayer2, 'visibility');
+  var visibilit3 = map.getLayoutProperty(clickedLayer3, 'visibility');
+  var visibility4 = map.getLayoutProperty(clickedLayer4, 'visibility');
   if (visibility === 'visible') {
     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
     map.setLayoutProperty(clickedLayer2, 'visibility', 'none');
+    map.setLayoutProperty(clickedLayer3, 'visibility', 'none');
+    map.setLayoutProperty(clickedLayer4, 'visibility', 'none');
     this.className = '';
     }
     else {
       this.className = 'active';
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
       map.setLayoutProperty(clickedLayer2, 'visibility', 'visible');
+      map.setLayoutProperty(clickedLayer3, 'visibility', 'visible');
+      map.setLayoutProperty(clickedLayer4, 'visibility', 'visible');
     }
   };
 var layers = document.getElementById('menu');
@@ -95,19 +103,23 @@ link.textContent = 'WRLURI 18';
 link.onclick = function (e) {
   var clickedLayer = 'place-county-cousub-onlywrlur-boicvi';
   var clickedLayer2 = 'cbsa-simplified-wrluri-attr-cq91id';
+  var clickedLayer3 = 'cbsa-wrluri-centroids-1xhja3';
   e.preventDefault();
   e.stopPropagation();
   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
   var visibility2 = map.getLayoutProperty(clickedLayer2, 'visibility');
+  var visibility3 = map.getLayoutProperty(clickedLayer3, 'visibility');
   if (visibility === 'visible') {
     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
     map.setLayoutProperty(clickedLayer2, 'visibility', 'none');
+    map.setLayoutProperty(clickedLayer3, 'visibility', 'none');
     this.className = '';
     }
     else {
       this.className = 'active';
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
       map.setLayoutProperty(clickedLayer2, 'visibility', 'visible');
+      map.setLayoutProperty(clickedLayer3, 'visibility', 'visible');
     }
   };
 var layers = document.getElementById('menu');
