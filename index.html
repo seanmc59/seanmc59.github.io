@@ -70,7 +70,6 @@ center: [-122.419, 37.779], // starting position [lng, lat]
 zoom: 9 // starting zoom
 });
 
-var id = 'costar-mapbox-2xiu2s';
 var link = document.createElement('a');
 link.href = '#';
 link.className = 'active';
@@ -79,6 +78,36 @@ link.textContent = 'CoStar';
 link.onclick = function (e) {
   var clickedLayer = 'costar-mapbox-2xiu2s';
   var clickedLayer2 = 'cbsa distance radii';
+  e.preventDefault();
+  e.stopPropagation();
+
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  var visibility2 = map.getLayoutProperty(clickedLayer2, 'visibility');
+
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    map.setLayoutProperty(clickedLayer2, 'visibility', 'none');
+    this.className = '';
+    }
+    else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+      map.setLayoutProperty(clickedLayer2, 'visibility', 'visible');
+
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+var link = document.createElement('a');
+link.href = '#';
+link.className = 'active';
+link.textContent = 'WRLURI18';
+
+link.onclick = function (e) {
+  var clickedLayer = 'place-county-cousub-onlywrlur-boicvi';
+  var clickedLayer2 = 'cbsa-simplified-wrluri-attr-cq91id';
   e.preventDefault();
   e.stopPropagation();
 
