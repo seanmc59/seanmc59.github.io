@@ -179,6 +179,45 @@ map.on('load', function() {
   });
 });
 
+map.on('load', function() {
+
+  // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+
+  map.on('mouseenter', 'place-county-cousub-onlywrlur-boicvi', function(e) {
+  // Change the cursor style as a UI indicator.
+  map.getCanvas().style.cursor = 'pointer';
+
+  var coordinates = e.features[0].geometry.coordinates[0][0].slice();
+  if (e.features[0].geometry.type == "MultiPolygon"){
+     var coordinates = e.features[0].geometry.coordinates[0][0][0].slice();
+  }
+  var description = "Areaname: " + e.features[0].properties.areaname_c
+  +"<br>WRLURI 2018: " + (e.features[0].properties.WRLURInew_).toFixed(2);
+
+  // Ensure that if the map is zoomed out such that multiple
+  // copies of the feature are visible, the popup appears
+  // over the copy being pointed to.
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  // Populate the popup and set its coordinates
+  // based on the feature found.
+  popup.setLngLat(coordinates)
+  .setHTML(description)
+  .addTo(map);
+  });
+
+  map.on('mouseleave', 'place-county-cousub-onlywrlur-boicvi', function() {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+  });
+});
+
 </script>
 
 </body>
