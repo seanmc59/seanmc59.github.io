@@ -113,7 +113,7 @@ link.href = '#';
 link.className = 'active';
 link.textContent = 'WRLURI 18';
 link.onclick = function (e) {
-  var clickedLayer = 'place-county-cousub-onlywrlur-boicvi';
+  var clickedLayer = 'place-county-cousub-onlywrlur-buzdux';
   var clickedLayer2 = 'cbsa-simplified-wrluri-attr-cq91id';
   var clickedLayer3 = 'cbsa-wrluri-centroids-1xhja3';
   e.preventDefault();
@@ -187,14 +187,11 @@ map.on('load', function() {
   closeOnClick: false
   });
 
-  map.on('mouseenter', 'place-county-cousub-onlywrlur-boicvi', function(e) {
+  map.on('mouseenter', 'place-county-cousub-onlywrlur-buzdux', function(e) {
   // Change the cursor style as a UI indicator.
   map.getCanvas().style.cursor = 'pointer';
 
-  var coordinates = e.features[0].geometry.coordinates[0][0].slice();
-  if (e.features[0].geometry.type == "MultiPolygon"){
-     var coordinates = e.features[0].geometry.coordinates[0][0][0].slice();
-  }
+  var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
   var description = "Areaname: " + e.features[0].properties.areaname_c
   +"<br>WRLURI 2018: " + (e.features[0].properties.WRLURInew_).toFixed(2);
 
@@ -212,7 +209,7 @@ map.on('load', function() {
   .addTo(map);
   });
 
-  map.on('mouseleave', 'place-county-cousub-onlywrlur-boicvi', function() {
+  map.on('mouseleave', 'place-county-cousub-onlywrlur-buzdux', function() {
   map.getCanvas().style.cursor = '';
   popup.remove();
   });
