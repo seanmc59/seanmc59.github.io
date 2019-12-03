@@ -166,6 +166,10 @@ link.onclick = function (e) {
 
 var layers = document.getElementById('menu');
 layers.appendChild(link);
+  
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 map.on('load', function() {
 
@@ -180,8 +184,12 @@ map.on('load', function() {
   map.getCanvas().style.cursor = 'pointer';
 
   var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
-  var description = "Areaname: " + e.features[0].properties.areaname_c
-  +"<br>WRLURI 2018: " + (e.features[0].properties.WRLURInew_).toFixed(2);
+  var description = "Areaname: " + e.features[0].properties.NAMELSAD
+  +"<br>Mean House Price: $" + numberWithCommas((e.features[0].properties.val).toFixed(0))
+  +"<br>Mean Family Income: $" + numberWithCommas((e.features[0].properties.inc).toFixed(0))
+  +"<br>Population: " + numberWithCommas(e.features[0].properties.pop)
+  +"<br>Housing Units: " + numberWithCommas(e.features[0].properties.hu)
+  +"<br>Share Rich (1960 Census Topcode): " + (e.features[0].properties.sharerichi).toFixed(2);
 
   // Ensure that if the map is zoomed out such that multiple
   // copies of the feature are visible, the popup appears
