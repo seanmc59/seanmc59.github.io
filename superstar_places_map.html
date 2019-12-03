@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>Superstar Map</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+
+<body>
+  <style>
+  #menu {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0,0,0,0.4);
+  font-family: 'Open Sans', sans-serif;
+  }
+  #menu a {
+  font-size: 13px;
+  color: #404040;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  text-align: center;
+  }
+  #menu a:last-child {
+  border: none;
+  }
+  #menu a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+  }
+  #menu a.active {
+  background-color: #3887be;
+  color: #ffffff;
+  }
+  #menu a.active:hover {
+  background: #3074a4;
+  }
+  </style>
+
+  <nav id="menu"></nav>
+
+<div id='map'></div>
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2Vhbm1jNTkiLCJhIjoiY2sya2xsOWJjMXQ3cjNobzFtNHIyZnRvaiJ9._fhW0VjqPDGQ4-ekkyUdbg';
+
+// Set Bounds
+var bounds = [
+  [-150, 20], // Southwest Coordinates
+  [-50, 55] // Northeast Coordinates
+];
+
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/seanmc59/ck3pzzvuw04w11cnprfxm92jt', // stylesheet location
+center: [-122.419, 37.779], // starting position [lng, lat]
+zoom: 9, // starting zoom
+maxBounds: bounds
+});
+
+var link = document.createElement('a');
+link.href = '#';
+link.textContent = '1990';
+link.onclick = function (e) {
+  var clickedLayer = 'place-superstar-attr1990-7g6zg8';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+map.on('load', function() {
+
+  // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+
+  map.on('mouseenter', 'costar-mapbox-2xiu2s', function(e) {
+  // Change the cursor style as a UI indicator.
+  map.getCanvas().style.cursor = 'pointer';
+
+  var coordinates = e.features[0].geometry.coordinates.slice();
+  var description = "Address: " + e.features[0].properties.propertyad +
+  "<br>Sale Price ($ 2018): $" + Math.round(e.features[0].properties.saleprice_)
+  + "<br>Lot Size (sqft): " + e.features[0].properties.land_sqft
+  + "<br>Zoning Tax: $" + Math.round(e.features[0].properties.implied_z1)
+  + "<br>Distance to City Center: " + Math.round(e.features[0].properties.dist_to_ce) + " Miles";
+
+  // Ensure that if the map is zoomed out such that multiple
+  // copies of the feature are visible, the popup appears
+  // over the copy being pointed to.
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  // Populate the popup and set its coordinates
+  // based on the feature found.
+  popup.setLngLat(coordinates)
+  .setHTML(description)
+  .addTo(map);
+  });
+
+  map.on('mouseleave', 'costar-mapbox-2xiu2s', function() {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+  });
+});
+
+map.on('load', function() {
+
+  // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+
+  map.on('mouseenter', 'place-county-cousub-onlywrlur-buzdux', function(e) {
+  // Change the cursor style as a UI indicator.
+  map.getCanvas().style.cursor = 'pointer';
+
+  var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
+  var description = "Areaname: " + e.features[0].properties.areaname_c
+  +"<br>WRLURI 2018: " + (e.features[0].properties.WRLURInew_).toFixed(2);
+
+  // Ensure that if the map is zoomed out such that multiple
+  // copies of the feature are visible, the popup appears
+  // over the copy being pointed to.
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  // Populate the popup and set its coordinates
+  // based on the feature found.
+  popup.setLngLat(coordinates)
+  .setHTML(description)
+  .addTo(map);
+  });
+
+  map.on('mouseleave', 'place-county-cousub-onlywrlur-buzdux', function() {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+  });
+});
+
+</script>
+
+</body>
+</html>
