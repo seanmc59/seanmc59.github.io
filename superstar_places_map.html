@@ -92,6 +92,77 @@ link.onclick = function (e) {
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
     }
   };
+  
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+  
+var link = document.createElement('a');
+link.href = '#';
+link.textContent = '2000';
+link.onclick = function (e) {
+  var clickedLayer = 'place-superstar-attr2000-7tf4vu';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+    
+var link = document.createElement('a');
+link.href = '#';
+link.textContent = '2010';
+link.onclick = function (e) {
+  var clickedLayer = 'place-superstar-attr2010-anvhtq';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+var link = document.createElement('a');
+link.href = '#';
+link.className = 'active';
+link.textContent = '2017';
+link.onclick = function (e) {
+  var clickedLayer = 'place-superstar-attr2017-a2q73x';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
 
 var layers = document.getElementById('menu');
 layers.appendChild(link);
@@ -104,46 +175,7 @@ map.on('load', function() {
   closeOnClick: false
   });
 
-  map.on('mouseenter', 'costar-mapbox-2xiu2s', function(e) {
-  // Change the cursor style as a UI indicator.
-  map.getCanvas().style.cursor = 'pointer';
-
-  var coordinates = e.features[0].geometry.coordinates.slice();
-  var description = "Address: " + e.features[0].properties.propertyad +
-  "<br>Sale Price ($ 2018): $" + Math.round(e.features[0].properties.saleprice_)
-  + "<br>Lot Size (sqft): " + e.features[0].properties.land_sqft
-  + "<br>Zoning Tax: $" + Math.round(e.features[0].properties.implied_z1)
-  + "<br>Distance to City Center: " + Math.round(e.features[0].properties.dist_to_ce) + " Miles";
-
-  // Ensure that if the map is zoomed out such that multiple
-  // copies of the feature are visible, the popup appears
-  // over the copy being pointed to.
-  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-  }
-
-  // Populate the popup and set its coordinates
-  // based on the feature found.
-  popup.setLngLat(coordinates)
-  .setHTML(description)
-  .addTo(map);
-  });
-
-  map.on('mouseleave', 'costar-mapbox-2xiu2s', function() {
-  map.getCanvas().style.cursor = '';
-  popup.remove();
-  });
-});
-
-map.on('load', function() {
-
-  // Create a popup, but don't add it to the map yet.
-  var popup = new mapboxgl.Popup({
-  closeButton: false,
-  closeOnClick: false
-  });
-
-  map.on('mouseenter', 'place-county-cousub-onlywrlur-buzdux', function(e) {
+  map.on('mouseenter', 'place-superstar-attr2017-a2q73x', function(e) {
   // Change the cursor style as a UI indicator.
   map.getCanvas().style.cursor = 'pointer';
 
@@ -165,7 +197,7 @@ map.on('load', function() {
   .addTo(map);
   });
 
-  map.on('mouseleave', 'place-county-cousub-onlywrlur-buzdux', function() {
+  map.on('mouseleave', 'place-superstar-attr2017-a2q73x', function() {
   map.getCanvas().style.cursor = '';
   popup.remove();
   });
