@@ -189,7 +189,8 @@ map.on('load', function() {
   +"<br>Mean Family Income: $" + numberWithCommas((e.features[0].properties.inc).toFixed(0))
   +"<br>Population: " + numberWithCommas(e.features[0].properties.pop)
   +"<br>Housing Units: " + numberWithCommas(e.features[0].properties.hu)
-  +"<br>Share Rich (1960 Census Topcode): " + (e.features[0].properties.sharerichi).toFixed(2);
+  +"<br>Share Rich (1960 Census Topcode): " + (e.features[0].properties.sharerichi).toFixed(2) 
+  +"<br>Note: in $ 2017 Dollars";
 
   // Ensure that if the map is zoomed out such that multiple
   // copies of the feature are visible, the popup appears
@@ -209,6 +210,121 @@ map.on('load', function() {
   map.getCanvas().style.cursor = '';
   popup.remove();
   });
+  
+   // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+
+  map.on('mouseenter', 'place-superstar-attr2010-aeq4ns', function(e) {
+  // Change the cursor style as a UI indicator.
+  map.getCanvas().style.cursor = 'pointer';
+
+  var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
+  var description = "Areaname: " + e.features[0].properties.NAMELSAD
+  +"<br>Mean House Price: $" + numberWithCommas((e.features[0].properties.val).toFixed(0))
+  +"<br>Mean Family Income: $" + numberWithCommas((e.features[0].properties.inc).toFixed(0))
+  +"<br>Population: " + numberWithCommas(e.features[0].properties.pop)
+  +"<br>Housing Units: " + numberWithCommas(e.features[0].properties.hu)
+  +"<br>Share Rich (1960 Census Topcode): " + (e.features[0].properties.sharerichi).toFixed(2) 
+  +"<br>Note: in $ 2017 Dollars";
+
+  // Ensure that if the map is zoomed out such that multiple
+  // copies of the feature are visible, the popup appears
+  // over the copy being pointed to.
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  // Populate the popup and set its coordinates
+  // based on the feature found.
+  popup.setLngLat(coordinates)
+  .setHTML(description)
+  .addTo(map);
+  });
+
+  map.on('mouseleave', 'place-superstar-attr2010-aeq4ns', function() {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+  });
+  
+   // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+
+  map.on('mouseenter', 'place-superstar-attr2000-3mcuus', function(e) {
+  // Change the cursor style as a UI indicator.
+  map.getCanvas().style.cursor = 'pointer';
+
+  var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
+  var description = "Areaname: " + e.features[0].properties.NAMELSAD
+  +"<br>Mean House Price: $" + numberWithCommas((e.features[0].properties.val).toFixed(0))
+  +"<br>Mean Family Income: $" + numberWithCommas((e.features[0].properties.inc).toFixed(0))
+  +"<br>Population: " + numberWithCommas(e.features[0].properties.pop)
+  +"<br>Housing Units: " + numberWithCommas(e.features[0].properties.hu)
+  +"<br>Share Rich (1960 Census Topcode): " + (e.features[0].properties.sharerichi).toFixed(2) 
+  +"<br>Note: in $ 2017 Dollars";
+
+  // Ensure that if the map is zoomed out such that multiple
+  // copies of the feature are visible, the popup appears
+  // over the copy being pointed to.
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  // Populate the popup and set its coordinates
+  // based on the feature found.
+  popup.setLngLat(coordinates)
+  .setHTML(description)
+  .addTo(map);
+  });
+
+  map.on('mouseleave', 'place-superstar-attr2000-3mcuus', function() {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+  });
+  
+   // Create a popup, but don't add it to the map yet.
+  var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+  });
+
+  map.on('mouseenter', 'place-superstar-attr1990-7v8dvr', function(e) {
+  // Change the cursor style as a UI indicator.
+  map.getCanvas().style.cursor = 'pointer';
+
+  var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
+  var description = "Areaname: " + e.features[0].properties.NAMELSAD
+  +"<br>Mean House Price: $" + numberWithCommas((e.features[0].properties.val).toFixed(0))
+  +"<br>Mean Family Income: $" + numberWithCommas((e.features[0].properties.inc).toFixed(0))
+  +"<br>Population: " + numberWithCommas(e.features[0].properties.pop)
+  +"<br>Housing Units: " + numberWithCommas(e.features[0].properties.hu)
+  +"<br>Share Rich (1960 Census Topcode): " + (e.features[0].properties.sharerichi).toFixed(2) 
+  +"<br>Note: in $ 2017 Dollars";
+
+  // Ensure that if the map is zoomed out such that multiple
+  // copies of the feature are visible, the popup appears
+  // over the copy being pointed to.
+  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  }
+
+  // Populate the popup and set its coordinates
+  // based on the feature found.
+  popup.setLngLat(coordinates)
+  .setHTML(description)
+  .addTo(map);
+  });
+
+  map.on('mouseleave', 'place-superstar-attr1990-7v8dvr', function() {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+  });
+  
 });
 
 </script>
