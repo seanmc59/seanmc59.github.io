@@ -83,7 +83,7 @@ map.on('load', function() {
   closeOnClick: false
   });
 
-  map.on('mouseenter', 'costar-hetero-mapbox-48h5gi', function(e) {
+  map.on('mouseenter', 'costar-points', function(e) {
   // Change the cursor style as a UI indicator.
   map.getCanvas().style.cursor = 'pointer';
 
@@ -109,7 +109,7 @@ map.on('load', function() {
   .addTo(map);
   });
 
-  map.on('mouseleave', 'costar-hetero-mapbox-48h5gi', function() {
+  map.on('mouseleave', 'costar-points', function() {
   map.getCanvas().style.cursor = '';
   popup.remove();
   });
