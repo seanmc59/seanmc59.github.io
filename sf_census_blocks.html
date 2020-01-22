@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>CoStar/WRLURI Maps</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+
+<body>
+  <style>
+  #menu {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0,0,0,0.4);
+  font-family: 'Open Sans', sans-serif;
+  }
+  #menu a {
+  font-size: 13px;
+  color: #404040;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  text-align: center;
+  }
+  #menu a:last-child {
+  border: none;
+  }
+  #menu a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+  }
+  #menu a.active {
+  background-color: #3887be;
+  color: #ffffff;
+  }
+  #menu a.active:hover {
+  background: #3074a4;
+  }
+  </style>
+
+  <nav id="menu"></nav>
+
+<div id='map'></div>
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2Vhbm1jNTkiLCJhIjoiY2sya2xsOWJjMXQ3cjNobzFtNHIyZnRvaiJ9._fhW0VjqPDGQ4-ekkyUdbg';
+
+// Set Bounds
+var bounds = [
+  [-150, 20], // Southwest Coordinates
+  [-50, 55] // Northeast Coordinates
+];
+
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/seanmc59/ck5oqmi0m16jc1iqrtjauh3fd', // stylesheet location
+center: [-122.419, 37.779], // starting position [lng, lat]
+zoom: 9, // starting zoom
+maxBounds: bounds
+});
+
+var link = document.createElement('a');
+link.href = '#';
+link.className = 'active';
+link.textContent = 'House Value 2000 ($ 2019)';
+link.onclick = function (e) {
+  var clickedLayer = 'medval2000';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+ var link = document.createElement('a');
+link.href = '#';
+link.textContent = 'House Value 2017 ($ 2019)';
+link.onclick = function (e) {
+  var clickedLayer = 'medval2017';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+   var link = document.createElement('a');
+link.href = '#';
+link.textContent = 'House Price Growth 2000-2017';
+link.onclick = function (e) {
+  var clickedLayer = 'hp_growth';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+    var link = document.createElement('a');
+link.href = '#';
+link.textContent = 'Rank Mobility 2000 - 2017';
+link.onclick = function (e) {
+  var clickedLayer = 'rank_change';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+
+</script>
+
+</body>
+</html>
