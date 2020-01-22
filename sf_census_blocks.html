@@ -97,28 +97,72 @@ link.onclick = function (e) {
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 
-var link = document.createElement('a');
+ var link = document.createElement('a');
 link.href = '#';
-link.className = 'active';
 link.textContent = 'House Value 2017 ($ 2019)';
 link.onclick = function (e) {
- var clickedLayer = 'medval2017';
- e.preventDefault();
- e.stopPropagation();
- var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
- if (visibility === 'visible') {
-   map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-   this.className = '';
-   }
+  var clickedLayer = 'medval2017';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
 
- else {
-     this.className = 'active';
-     map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-   }
- };
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
 
 var layers = document.getElementById('menu');
 layers.appendChild(link);
+
+   var link = document.createElement('a');
+link.href = '#';
+link.textContent = 'House Price Growth 2000-2017';
+link.onclick = function (e) {
+  var clickedLayer = 'hp_growth';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+    var link = document.createElement('a');
+link.href = '#';
+link.textContent = 'Rank Mobility 2000 - 2017';
+link.onclick = function (e) {
+  var clickedLayer = 'rank_change';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+    }
+
+  else {
+      this.className = 'active';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+    }
+  };
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
 
 </script>
 
