@@ -163,6 +163,27 @@ link.onclick = function (e) {
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 
+var link = document.createElement('a');
+link.href = '#';
+link.textContent = 'Distance to Rich Census Block';
+link.onclick = function (e) {
+var clickedLayer = 'distance-to-rich';
+e.preventDefault();
+e.stopPropagation();
+var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+if (visibility === 'visible') {
+map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+this.className = '';
+}
+
+else {
+  this.className = 'active';
+  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+}
+};
+
+var layers = document.getElementById('menu');
+layers.appendChild(link);
 
 </script>
 
