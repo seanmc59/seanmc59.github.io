@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<title>San Francisco House Prices Block Groups</title>
+<title>San Francisco House Prices Places</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
@@ -68,7 +68,7 @@ var bounds = [
 
 var map = new mapboxgl.Map({
 container: 'map', // container id
-style: 'mapbox://styles/seanmc59/ck5oqmi0m16jc1iqrtjauh3fd', // stylesheet location
+style: 'mapbox://styles/seanmc59/ck682o20h0xur1iny47w5m1b7', // stylesheet location
 center: [-122.419, 37.779], // starting position [lng, lat]
 zoom: 9, // starting zoom
 maxBounds: bounds
@@ -77,9 +77,9 @@ maxBounds: bounds
 var link = document.createElement('a');
 link.href = '#';
 link.className = 'active';
-link.textContent = 'House Value 2000 ($ 2019)';
+link.textContent = 'Mean House Value 1970 ($ 2017)';
 link.onclick = function (e) {
-  var clickedLayer = 'medval2000';
+  var clickedLayer = 'val1970';
   e.preventDefault();
   e.stopPropagation();
   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
@@ -99,9 +99,9 @@ layers.appendChild(link);
 
  var link = document.createElement('a');
 link.href = '#';
-link.textContent = 'House Value 2017 ($ 2019)';
+link.textContent = 'Mean House Value 1990 ($ 2017) colorscale set to 90s';
 link.onclick = function (e) {
-  var clickedLayer = 'medval2017';
+  var clickedLayer = 'val1990_90scale';
   e.preventDefault();
   e.stopPropagation();
   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
@@ -116,12 +116,31 @@ link.onclick = function (e) {
     }
   };
 
+  var link = document.createElement('a');
+ link.href = '#';
+ link.textContent = 'Mean House Value 1990 ($ 2017) colorscale set to 70s';
+ link.onclick = function (e) {
+   var clickedLayer = 'val1990';
+   e.preventDefault();
+   e.stopPropagation();
+   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+   if (visibility === 'visible') {
+     map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+     this.className = '';
+     }
+
+   else {
+       this.className = 'active';
+       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+     }
+   };
+
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 
    var link = document.createElement('a');
 link.href = '#';
-link.textContent = 'House Price Growth 2000-2017';
+link.textContent = 'House Price Growth 1970-1990';
 link.onclick = function (e) {
   var clickedLayer = 'hp_growth';
   e.preventDefault();
@@ -141,33 +160,11 @@ link.onclick = function (e) {
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 
-    var link = document.createElement('a');
-link.href = '#';
-link.textContent = 'Rank Mobility 2000 - 2017';
-link.onclick = function (e) {
-  var clickedLayer = 'rank_change';
-  e.preventDefault();
-  e.stopPropagation();
-  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-  if (visibility === 'visible') {
-    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-    this.className = '';
-    }
-
-  else {
-      this.className = 'active';
-      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-    }
-  };
-
-var layers = document.getElementById('menu');
-layers.appendChild(link);
-
 var link = document.createElement('a');
 link.href = '#';
-link.textContent = 'Distance to Rich Census Block';
+link.textContent = 'Distance to Rich Census Place';
 link.onclick = function (e) {
-var clickedLayer = 'distance-to-rich';
+var clickedLayer = 'dist_to_rich';
 e.preventDefault();
 e.stopPropagation();
 var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
