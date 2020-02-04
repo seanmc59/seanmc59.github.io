@@ -116,6 +116,9 @@ link.onclick = function (e) {
     }
   };
 
+  var layers = document.getElementById('menu');
+  layers.appendChild(link);
+
   var link = document.createElement('a');
  link.href = '#';
  link.textContent = 'Mean House Value 1990 ($ 2017) colorscale set to 70s';
