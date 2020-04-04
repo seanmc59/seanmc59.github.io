@@ -64,11 +64,13 @@ var map = new mapboxgl.Map({
 container: 'map', // container id
 style: 'mapbox://styles/seanmc59/ck8kuh6si01s51io53h8mnnte', // stylesheet location
 center: [-122.419, 37.779], // starting position [lng, lat]
-zoom: 14,
+zoom: 10,
 pitch: 40,
 bearing: 20,
 antialias: true
 });
+
+map.setMinZoom(9)
 
 map.on('load', function() {
     map.addSource('floorplan', {
