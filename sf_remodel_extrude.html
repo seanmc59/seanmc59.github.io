@@ -70,6 +70,14 @@ bearing: 20,
 antialias: true
 });
 
+map.on('load', function() {
+    map.addSource('floorplan', {
+    'type': 'geojson',
+    'data':
+    'sf_remodel_extrude'
+    });
+});
+
 
 </script>
 
