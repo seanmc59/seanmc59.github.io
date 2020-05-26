@@ -72,103 +72,100 @@ link.href = '#';
 link.className = 'active';
 link.textContent = 'Mean House Age 2014-2018';
 link.onclick = function (e) {
-  if (this.className=='active') {
-    this.className='';
-  }
-  else {
-    this.className='active';
-    link1.className='';
-  }
   var clickedLayer = 'tracts-dta';
-  map.setPaintProperty('tracts-dta', 'fill-color',
-  [
-      "interpolate",
-      ["linear"],
-      ["zoom"],
-      0,
-      [
-        "interpolate",
-        ["linear"],
-        [
-          "get",
-          "meanhouseage2016"
-        ],
-        27.45,
-        "hsla(118, 95%, 51%, 0.71)",
-        80.34,
-        "hsla(0, 90%, 49%, 0.7)"
-      ],
-      22,
-      [
-        "interpolate",
-        ["linear"],
-        [
-          "get",
-          "meanhouseage2016"
-        ],
-        27.45,
-        "hsla(118, 95%, 51%, 0.71)",
-        80.34,
-        "hsla(0, 90%, 49%, 0.7)"
-      ]
-  ]
-);
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+  }
+
+  else {
+      this.className = 'active';
+      link1.className='';
+      link2.className='';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+  }
+
 }
 var layers = document.getElementById('menu');
 layers.appendChild(link);
 
 var link1 = document.createElement('a');
 link1.href = '#';
-//link.className = 'active';
-link1.textContent = 'Mean House Age 1970';
+link1.textContent = 'Panel Mean House Age 2014-2018';
 link1.onclick = function (e) {
-if (this.className=='active') {
-    this.className='';
-}
-else {
-  this.className='active';
-  link.className='';
-}
-  var clickedLayer = 'tracts-dta';
-  map.setPaintProperty('tracts-dta', 'fill-color',
-  [
+  var clickedLayer = 'tracts-panel';
+  var unclick = 'tracts-dta';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible' & this.classname == '') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+  }
+
+  else {
+      this.className = 'active';
+      link.className='';
+      link2.className='';
+      map.setLayoutProperty(unclick, 'visibility', 'none');
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+
+  }
+
+  map.setPaintProperty('tracts-panel', 'fill-color',
+     [
       "interpolate",
       ["linear"],
-      ["zoom"],
-      0,
-      [
-        "interpolate",
-        ["linear"],
-        [
-          "get",
-          "meanhouseage1970"
-        ],
-        9.44,
-        "hsla(118, 95%, 51%, 0.71)",
-        39.40,
-        "hsla(0, 90%, 49%, 0.7)"
-      ],
-      22,
-      [
-        "interpolate",
-        ["linear"],
-        [
-          "get",
-          "meanhouseage1970"
-        ],
-        9.44,
-        "hsla(118, 95%, 51%, 0.71)",
-        39.40,
-        "hsla(0, 90%, 49%, 0.7)"
-      ]
-  ]
+      ["get", "meanhouseage2016"],
+      27.02,
+      "hsl(108, 86%, 50%)",
+      84.16,
+      "hsl(0, 100%, 46%)"
+    ]
 );
-var paint = String(map.getPaintProperty('tracts-dta', 'fill-color'));
-//document.write (document.getElementById('menu'));
 }
 
 var layers = document.getElementById('menu');
 layers.appendChild(link1);
+
+var link2 = document.createElement('a');
+link2.href = '#';
+link2.textContent = 'Mean House Age 1970';
+link2.onclick = function (e) {
+  var clickedLayer = 'tracts-panel';
+  e.preventDefault();
+  e.stopPropagation();
+  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+  if (visibility === 'visible' & this.classname == '') {
+    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+    this.className = '';
+  }
+
+  else {
+      this.className = 'active';
+      link.className='';
+      link1.className='';
+      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+  }
+
+  map.setPaintProperty('tracts-panel', 'fill-color',
+     [
+      "interpolate",
+      ["linear"],
+      ["get", "meanhouseage1970"],
+      9.53,
+      "hsl(108, 86%, 50%)",
+      39.04,
+      "hsl(0, 100%, 46%)"
+    ]
+);
+}
+
+var layers = document.getElementById('menu');
+layers.appendChild(link2);
 
 </script>
 
