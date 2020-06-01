@@ -120,6 +120,9 @@ link.onclick = function (e) {
       map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
   }
 
+  updateColorScale([6, 27.45, 80.34, 118.5], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "2014-2018");
+
+
 }
 var layers = document.getElementById('menu');
 layers.appendChild(link);
@@ -157,7 +160,10 @@ link1.onclick = function (e) {
       84.16,
       "hsl(0, 100%, 46%)"
     ]
-);
+  );
+
+  updateColorScale([0, 27.02, 84.16, 100], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "2014-2018");
+
 }
 
 var layers = document.getElementById('menu');
@@ -194,6 +200,9 @@ link2.onclick = function (e) {
       "hsl(0, 100%, 46%)"
     ]
 );
+
+  updateColorScale([0, 9.53, 39.04, 50], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "1970");
+
 }
 
 var layers = document.getElementById('menu');
@@ -207,7 +216,8 @@ var colorScale = d3.scaleLinear()
      // append a defs (for definition) element to your SVG
 var svgLegend = d3.select('#var-legend').append('svg')
     .attr("width",600);
-    var defs = svgLegend.append('defs');
+
+var defs = svgLegend.append('defs');
 
 	// append a linearGradient element to the defs and give it a unique id
 var linearGradient = defs.append('linearGradient')
@@ -238,7 +248,7 @@ svgLegend.append("text")
   .attr("x", 0)
   .attr("y", 15)
   .style("text-anchor", "left")
-  .text("Mean House Age");
+  .text("Mean House Age 2014-2018");
 
 // draw the rectangle and fill with gradient
 svgLegend.append("rect")
@@ -262,6 +272,73 @@ svgLegend
   .attr("transform", "translate(0, 41)")
   .call(axisLeg);
 
+ // update the colour scale, restyle the plot points and legend
+ // Take min, 10p, 50p, 90p, max for domain and two colors at 10 and 90p both size 5 vectors
+function updateColorScale(domainch, colors, year) {
+    // clear current legend
+    svgLegend.selectAll('*').remove();
+
+    // create color scale
+    var colorScale = d3.scaleLinear()
+  	.domain(domainch)
+  	.range(colors);
+
+    var defs = svgLegend.append('defs');
+        // append a linearGradient element to the defs and give it a unique id
+
+  var linearGradient = defs.append('linearGradient')
+            .attr('id', 'linear-gradient');
+
+    // horizontal gradient
+    linearGradient
+      .attr("x1", "0%")
+      .attr("y1", "0%")
+      .attr("x2", "100%")
+      .attr("y2", "0%");
+
+    // append multiple color stops by using D3's data/enter step
+
+    linearGradient.selectAll("stop")
+      .data(colorScale.domain())
+      .enter().append("stop")
+      .attr("offset", function(d) {
+        return d+"%";
+      })
+      .attr("stop-color", function(d) {
+        return colorScale(d);
+      });
+
+    // append title
+    svgLegend.append("text")
+      .attr("class", "legendTitle")
+      .attr("x", 0)
+      .attr("y", 15)
+      .style("text-anchor", "left")
+      .text("Mean House Age " + year);
+
+    // draw the rectangle and fill with gradient
+    svgLegend.append("rect")
+      .attr("x", 10)
+      .attr("y", 25)
+      .attr("width", 300)
+      .attr("height", 15)
+      .style("fill", "url(#linear-gradient)");
+
+    //create tick marks
+    var xLeg = d3.scaleLinear()
+      .domain([domainch[0], domainch[3]])
+      .range([10, 309]);
+
+    var axisLeg = d3.axisBottom(xLeg)
+      .tickValues(colorScale.domain())
+
+    svgLegend
+      .attr("class", "axis")
+      .append("g")
+      .attr("transform", "translate(0, 41)")
+      .call(axisLeg);
+
+  }
 
 </script>
 
