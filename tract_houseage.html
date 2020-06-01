@@ -121,13 +121,13 @@ link.onclick = function (e) {
       ["linear"],
       ["get", "meanhouseage2016"],
       27.45,
-      "hsl(108, 86%, 50%)",
+      "#c406f4",
       80.34,
-      "hsl(0, 100%, 46%)"
+      "#ecb709"
     ]
   );
 
-  updateColorScale([6.5, 27.45, 80.34, 118.5], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "Mean House Age 2014-2018");
+  updateColorScale([6.5, 27.45, 80.34, 118.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 2014-2018");
 
 
 }
@@ -156,13 +156,13 @@ link1.onclick = function (e) {
       ["linear"],
       ["get", "meanhouseage2016"],
       27.02,
-      "hsl(108, 86%, 50%)",
+      '#c406f4',
       84.16,
-      "hsl(0, 100%, 46%)"
+      '#ecb709'
     ]
   );
 
-  updateColorScale([8.11, 27.02, 84.16, 118.5], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "Mean House Age 2014-2018");
+  updateColorScale([8.11, 27.02, 84.16, 118.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 2014-2018");
 
 }
 
@@ -192,21 +192,20 @@ link2.onclick = function (e) {
       ["linear"],
       ["get", "meanhouseage1970"],
       9.53,
-      "hsl(108, 86%, 50%)",
+      '#c406f4',
       39.04,
-      "hsl(0, 100%, 46%)"
+      '#ecb709'
     ]
 );
 
-  updateColorScale([2.05, 9.53, 39.04, 46.5], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "Mean House Age 1970");
+  updateColorScale([2.05, 9.53, 39.04, 46.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 1970");
 
 }
 
 var layers = document.getElementById('menu');
 layers.appendChild(link2);
 
-var layers = document.getElementById('menu');
-layers.appendChild(link1);
+//------------------------------------------------
 
 var link3 = document.createElement('a');
 link3.href = '#';
@@ -230,13 +229,13 @@ link3.onclick = function (e) {
       ["linear"],
       ["get", "meanval2016"],
       98508,
-      "hsl(108, 86%, 50%)",
+      '#eb0000',
       561944,
-      "hsl(0, 100%, 46%)"
+      '#3eed12'
     ]
 );
 
-  updateColorScale([51.87, 98.508, 561.944, 1438.503], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "Mean Value 2014-2018");
+  updateColorScale([51.87, 98.508, 561.944, 1438.503], ['#eb0000', '#eb0000', '#3eed12', '#3eed12'], "Mean Value 2014-2018");
 
 }
 
@@ -245,7 +244,7 @@ layers.appendChild(link3);
 //----------------------------------------------------------------
 var colorScale = d3.scaleLinear()
   	.domain([6.5, 27.45, 80.34, 118.5])
-  	.range(['#3eed12', '#3eed12', '#eb0000', '#eb0000']);
+  	.range(['#c406f4', '#c406f4', '#ecb709', '#ecb709']);
 
      // append a defs (for definition) element to your SVG
 var svgLegend = d3.select('#var-legend').append('svg')
