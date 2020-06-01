@@ -105,20 +105,15 @@ link.className = 'active';
 link.textContent = 'Mean House Age 2014-2018';
 link.onclick = function (e) {
   var clickedLayer = 'tracts-dta';
+  var unclickLayer = 'tracts-panel';
   e.preventDefault();
   e.stopPropagation();
-  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-  if (visibility === 'visible') {
-    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-    this.className = '';
-  }
+  this.className = 'active';
+  link1.className='';
+  link2.className='';
+  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+  map.setLayoutProperty(unclickLayer, 'visibility', 'none');
 
-  else {
-      this.className = 'active';
-      link1.className='';
-      link2.className='';
-      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-  }
 
   updateColorScale([6, 27.45, 80.34, 118.5], ['#3eed12', '#3eed12', '#eb0000', '#eb0000'], "2014-2018");
 
@@ -132,23 +127,15 @@ link1.href = '#';
 link1.textContent = 'Panel Mean House Age 2014-2018';
 link1.onclick = function (e) {
   var clickedLayer = 'tracts-panel';
-  var unclick = 'tracts-dta';
+  var unclickLayer = 'tracts-dta';
   e.preventDefault();
   e.stopPropagation();
-  var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-  if (visibility === 'visible' & this.classname == '') {
-    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-    this.className = '';
-  }
 
-  else {
-      this.className = 'active';
-      link.className='';
-      link2.className='';
-      map.setLayoutProperty(unclick, 'visibility', 'none');
-      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-
-  }
+  this.className = 'active';
+  link.className='';
+  link2.className='';
+  map.setLayoutProperty(unclickLayer, 'visibility', 'none');
+  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
 
   map.setPaintProperty('tracts-panel', 'fill-color',
      [
@@ -174,20 +161,16 @@ link2.href = '#';
 link2.textContent = 'Mean House Age 1970';
 link2.onclick = function (e) {
   var clickedLayer = 'tracts-panel';
+  var unclickLayer = 'tracts-dta';
   e.preventDefault();
   e.stopPropagation();
   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-  if (visibility === 'visible' & this.classname == '') {
-    map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-    this.className = '';
-  }
 
-  else {
-      this.className = 'active';
-      link.className='';
-      link1.className='';
-      map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-  }
+  this.className = 'active';
+  link.className='';
+  link1.className='';
+  map.setLayoutProperty(unclickLayer, 'visibility', 'none');
+  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
 
   map.setPaintProperty('tracts-panel', 'fill-color',
      [
@@ -286,7 +269,7 @@ function updateColorScale(domainch, colors, year) {
     var defs = svgLegend.append('defs');
         // append a linearGradient element to the defs and give it a unique id
 
-  var linearGradient = defs.append('linearGradient')
+    var linearGradient = defs.append('linearGradient')
             .attr('id', 'linear-gradient');
 
     // horizontal gradient
