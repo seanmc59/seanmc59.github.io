@@ -109,9 +109,8 @@ link.onclick = function (e) {
   e.preventDefault();
   e.stopPropagation();
   this.className = 'active';
-  link1.className='';
-  link2.className='';
-  link3.className='';
+  link1.className='', link2.className='', link3.className='', link4.className='';
+
   map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
   map.setLayoutProperty(unclickLayer, 'visibility', 'none');
 
@@ -127,7 +126,8 @@ link.onclick = function (e) {
     ]
   );
 
-  updateColorScale([6.5, 27.45, 80.34, 118.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 2014-2018");
+  updateColorScale([27.45, 80.34], ['#c406f4','#ecb709'], "Mean House Age 2014-2018");
+ // updateColorScale([6.5, 27.45, 80.34, 118.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 2014-2018");
 
 
 }
@@ -162,7 +162,8 @@ link1.onclick = function (e) {
     ]
   );
 
-  updateColorScale([8.11, 27.02, 84.16, 118.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 2014-2018");
+  updateColorScale([27.02, 84.16], ['#c406f4', '#ecb709'], "Mean House Age 2014-2018");
+  // updateColorScale([8.11, 27.02, 84.16, 118.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 2014-2018");
 
 }
 
@@ -180,9 +181,8 @@ link2.onclick = function (e) {
   var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
 
   this.className = 'active';
-  link.className='';
-  link1.className='';
-  link3.className='';
+  link.className='', link1.className='', link3.className='', link4.className='';
+
   map.setLayoutProperty(unclickLayer, 'visibility', 'none');
   map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
 
@@ -198,7 +198,8 @@ link2.onclick = function (e) {
     ]
 );
 
-  updateColorScale([2.05, 9.53, 39.04, 46.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 1970");
+  updateColorScale([9.53, 39.04], ['#c406f4', '#ecb709'], "Mean House Age 1970");
+  //   updateColorScale([2.05, 9.53, 39.04, 46.5], ['#c406f4', '#c406f4', '#ecb709', '#ecb709'], "Mean House Age 1970");
 
 }
 
@@ -217,9 +218,8 @@ link3.onclick = function (e) {
   e.stopPropagation();
 
   this.className = 'active';
-  link.className='';
-  link1.className='';
-  link2.className='';
+  link.className='', link1.className='', link2.className='', link4.className='';
+
   map.setLayoutProperty(unclickLayer, 'visibility', 'none');
   map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
 
@@ -235,16 +235,54 @@ link3.onclick = function (e) {
     ]
 );
 
-  updateColorScale([51.87, 98.508, 561.944, 1438.503], ['#eb0000', '#eb0000', '#3eed12', '#3eed12'], "Mean Value 2014-2018");
+  updateColorScale([98.508, 561.944], ['#eb0000', '#3eed12'], "Mean Value 2014-2018");
+  //   updateColorScale([51.87, 98.508, 561.944, 1438.503], ['#eb0000', '#eb0000', '#3eed12', '#3eed12'], "Mean Value 2014-2018");
 
 }
 
 var layers = document.getElementById('menu');
 layers.appendChild(link3);
+
+var link4 = document.createElement('a');
+link4.href = '#';
+link4.textContent = 'Annualized Real Price Growth';
+link4.onclick = function (e) {
+  var clickedLayer = 'tracts-panel';
+  var unclickLayer = 'tracts-dta';
+  e.preventDefault();
+  e.stopPropagation();
+
+  this.className = 'active';
+  link.className='';
+  link1.className='';
+  link2.className='';
+  link3.className='';
+  map.setLayoutProperty(unclickLayer, 'visibility', 'none');
+  map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+
+  map.setPaintProperty('tracts-panel', 'fill-color',
+     [
+      "interpolate",
+      ["linear"],
+      ["get", "meanvalannch"],
+      0.571,
+      '#eb0000',
+      3.038,
+      '#3eed12'
+    ]
+);
+
+  updateColorScale([0.571, 3.038], ['#eb0000', '#3eed12'], "Annualized Real Price Growth");
+  // updateColorScale([-1.40, 0.571, 3.038, 4.564], ['#eb0000', '#eb0000', '#3eed12', '#3eed12'], "Annualized Real Price Growth");
+
+}
+
+var layers = document.getElementById('menu');
+layers.appendChild(link4);
 //----------------------------------------------------------------
 var colorScale = d3.scaleLinear()
-  	.domain([6.5, 27.45, 80.34, 118.5])
-  	.range(['#c406f4', '#c406f4', '#ecb709', '#ecb709']);
+  	.domain([27.45, 80.34])
+  	.range(['#c406f4', '#ecb709']);
 
      // append a defs (for definition) element to your SVG
 var svgLegend = d3.select('#var-legend').append('svg')
@@ -293,7 +331,7 @@ svgLegend.append("rect")
 
 //create tick marks
 var xLeg = d3.scaleLinear()
-  .domain([6.5, 118.5])
+  .domain([27.45, 80.34])
   .range([10, 309]);
 
 var axisLeg = d3.axisBottom(xLeg)
@@ -331,6 +369,7 @@ function updateColorScale(domainch, colors, varname) {
 
     // append multiple color stops by using D3's data/enter step
 
+    /*
     linearGradient.selectAll("stop")
       .data(colorScale.domain())
       .enter().append("stop")
@@ -340,6 +379,18 @@ function updateColorScale(domainch, colors, varname) {
       .attr("stop-color", function(d) {
         return colorScale(d);
       });
+    */
+
+    // Fix Color Scale on p10 and p90
+    linearGradient.append("stop")
+    .attr("offset", "0%")
+    .style("stop-color", colors[0])//end in red
+    .style("stop-opacity", 1)
+
+    linearGradient.append("stop")
+    .attr("offset", "100%")
+    .style("stop-color", colors[1])//end in red
+    .style("stop-opacity", 1)
 
     // append title
     svgLegend.append("text")
@@ -350,6 +401,7 @@ function updateColorScale(domainch, colors, varname) {
       .text(varname);
 
     // draw the rectangle and fill with gradient
+
     svgLegend.append("rect")
       .attr("x", 10)
       .attr("y", 25)
@@ -357,9 +409,10 @@ function updateColorScale(domainch, colors, varname) {
       .attr("height", 15)
       .style("fill", "url(#linear-gradient)");
 
+
     //create tick marks
     var xLeg = d3.scaleLinear()
-      .domain([domainch[0], domainch[3]])
+      .domain(domainch)
       .range([10, 309]);
 
     var axisLeg = d3.axisBottom(xLeg)
