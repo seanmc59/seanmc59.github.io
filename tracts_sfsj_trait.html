@@ -301,6 +301,7 @@ function updateColorScale(domainch, colors, varname) {
 
 map.on('load', function() {
 
+  console.log("poop");
   // Create a popup, but don't add it to the map yet.
   var popup = new mapboxgl.Popup({
   closeButton: false,
@@ -311,9 +312,10 @@ map.on('load', function() {
   // Change the cursor style as a UI indicator.
   map.getCanvas().style.cursor = 'pointer';
 
+  console.log('hello');
+  console.log(e.features[0].properties["lon"]);
   var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
-  var description = "Tract Name: "
-  +"<br>Something Else: ";
+  var description = "Tract Name <br>Something Else: ";
   // + e.features[0].properties.name
 
   // Ensure that if the map is zoomed out such that multiple
@@ -330,7 +332,7 @@ map.on('load', function() {
   .addTo(map);
   });
 
-  map.on('mouseleave', 'place-county-cousub-onlywrlur-buzdux', function() {
+  map.on('mouseleave', 'tracts-sfsj-dta-1970', function() {
   map.getCanvas().style.cursor = '';
   popup.remove();
   });
