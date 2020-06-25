@@ -16,7 +16,19 @@ body { margin:0; padding:0; }
 
 <body>
   <style>
-  #menu {
+  #menu1 {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 150px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0,0,0,0.4);
+  font-family: 'Open Sans', sans-serif;
+  }
+
+  .menu {
   background: #fff;
   position: absolute;
   z-index: 1;
@@ -27,7 +39,7 @@ body { margin:0; padding:0; }
   border: 1px solid rgba(0,0,0,0.4);
   font-family: 'Open Sans', sans-serif;
   }
-  #menu a {
+  .menu a {
   font-size: 13px;
   color: #404040;
   display: block;
@@ -38,18 +50,18 @@ body { margin:0; padding:0; }
   border-bottom: 1px solid rgba(0,0,0,0.25);
   text-align: center;
   }
-  #menu a:last-child {
+  .menu a:last-child {
   border: none;
   }
-  #menu a:hover {
+  .menu a:hover {
   background-color: #f8f8f8;
   color: #404040;
   }
-  #menu a.active {
+  .menu a.active {
   background-color: #3887be;
   color: #ffffff;
   }
-  #menu a.active:hover {
+  .menu a.active:hover {
   background: #3074a4;
   }
 
@@ -81,7 +93,9 @@ body { margin:0; padding:0; }
   }
   </style>
 
-  <nav id="menu"></nav>
+<nav class="menu" id="menu1"></nav>
+
+<nav class="menu" id="menu"></nav>
 
 <div id='map'></div>
 
@@ -98,7 +112,105 @@ style: 'mapbox://styles/seanmc59/ck9x4anm90l8u1irpejbcye4o', // stylesheet locat
 center: [-122.419, 37.775], // starting position [lng, lat]
 minZoom: 9
 });
+//--------------------------------------------------------
+var varlink = document.createElement('a');
+varlink.href = '#';
+varlink.className = 'active';
+varlink.textContent = 'Income';
+varlink.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  varlink1.className='';
 
+  if (link.className == 'active') {
+    map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanhinc1970']);
+    map.setFilter('outline', ['has', 'meanhinc1970']);
+
+    map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc1970"],
+        49335,
+        '#df0c0c',
+        110544,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([49335, 110544], ['#df0c0c','#36df0c'], "Mean Household Income 1970 ($ 2018)");
+  } else {
+    map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanhinc2016']);
+    map.setFilter('outline', ['has', 'meanhinc2016']);
+     map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+     [
+      "interpolate",
+      ["linear"],
+      ["get", "meanhinc2016"],
+      74047,
+      '#df0c0c',
+      219957,
+      '#36df0c'
+    ]
+    );
+
+    updateColorScale([74047, 219957], ['#df0c0c', '#36df0c'], "Mean Household Income 2014-2018 ($ 2018)");
+  }
+}
+var layers = document.getElementById('menu1');
+layers.appendChild(varlink);
+
+var varlink1 = document.createElement('a');
+varlink1.href = '#';
+varlink1.className = '';
+varlink1.textContent = 'House Value';
+varlink1.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  varlink.className='';
+
+
+  if (link.className == 'active') {
+    map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanval1970']);
+    map.setFilter('outline', ['has', 'meanval1970']);
+    map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval1970"],
+        126520,
+        '#df0c0c',
+        260567,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([126520, 260567], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+    } else {
+        map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanval2016']);
+        map.setFilter('outline', ['has', 'meanval2016']);
+        map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval2016"],
+        436264,
+        '#df0c0c',
+        1652084,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([436264, 1652084], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+    }
+ }
+var layers = document.getElementById('menu1');
+layers.appendChild(varlink1);
+
+// Add year buttons
+//-----------------------------------------------------------
 var link = document.createElement('a');
 link.href = '#';
 link.className = 'active';
@@ -109,23 +221,41 @@ link.onclick = function (e) {
   this.className = 'active';
   link1.className='';
 
-  map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanhinc1970']);
-  map.setFilter('outline', ['has', 'meanhinc1970']);
+  if (varlink.className=='active') {
+    map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanhinc1970']);
+    map.setFilter('outline', ['has', 'meanhinc1970']);
 
-  map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
-     [
-      "interpolate",
-      ["linear"],
-      ["get", "meanhinc1970"],
-      49335,
-      '#df0c0c',
-      110544,
-      '#36df0c'
-    ]
-  );
+    map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc1970"],
+        49335,
+        '#df0c0c',
+        110544,
+        '#36df0c'
+      ]
+    );
 
-  updateColorScale([49335, 110544], ['#df0c0c','#36df0c'], "Mean Household Income 1970 ($ 2018)");
-  popup.remove();
+    updateColorScale([49335, 110544], ['#df0c0c','#36df0c'], "Mean Household Income 1970 ($ 2018)");
+    popup.remove();
+  } else {
+    map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanval1970']);
+    map.setFilter('outline', ['has', 'meanval1970']);
+    map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval1970"],
+        126520,
+        '#df0c0c',
+        260567,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([126520, 260567], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+  }
 }
 var layers = document.getElementById('menu');
 layers.appendChild(link);
@@ -139,28 +269,45 @@ link1.onclick = function (e) {
 
   this.className = 'active';
   link.className='';
-  map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanhinc2016']);
-  map.setFilter('outline', ['has', 'meanhinc2016']);
 
+  if (varlink.className=='active') {
+    map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanhinc2016']);
+    map.setFilter('outline', ['has', 'meanhinc2016']);
+    map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc2016"],
+        74047,
+        '#df0c0c',
+        219957,
+        '#36df0c'
+      ]
+    );
 
-  map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
-     [
-      "interpolate",
-      ["linear"],
-      ["get", "meanhinc2016"],
-      74047,
-      '#df0c0c',
-      219957,
-      '#36df0c'
-    ]
-  );
-
-  updateColorScale([74047, 219957], ['#df0c0c', '#36df0c'], "Mean Household Income 2014-2018 ($ 2018)");
-  popup.remove();
+    updateColorScale([74047, 219957], ['#df0c0c', '#36df0c'], "Mean Household Income 2014-2018 ($ 2018)");
+    popup.remove();
+  } else {
+        map.setFilter('tracts-sfsj-dta-1970', ['has', 'meanval2016']);
+        map.setFilter('outline', ['has', 'meanval2016']);
+        map.setPaintProperty('tracts-sfsj-dta-1970', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval2016"],
+        436264,
+        '#df0c0c',
+        1652084,
+        '#36df0c'
+      ]
+    );
+    updateColorScale([436264, 1652084], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+  }
 }
 
 var layers = document.getElementById('menu');
 layers.appendChild(link1);
+
 
 //----------------------------------------------------------------
 var colorScale = d3.scaleLinear()
