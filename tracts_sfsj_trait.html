@@ -301,35 +301,28 @@ function updateColorScale(domainch, colors, varname) {
 
 map.on('load', function() {
 
-  console.log("poop");
-  // Create a popup, but don't add it to the map yet.
-  var popup = new mapboxgl.Popup({
-  closeButton: false,
-  closeOnClick: false
+  map.on('click', 'tracts-sfsj-dta-1970', function(e) {
+    var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
+    var description =
+    "Tract Name: " + e.features[0].properties.name
+    + "<br>Occupied Units : " +  Math.round(e.features[0].properties["occupied1970"]).toLocaleString('en')
+    + "<br>Owner Occupied : " +  Math.round(e.features[0].properties["owneroccupied1970"]).toLocaleString('en')
+    + "<br>Renter Occupied : " +  Math.round(e.features[0].properties["renteroccupied1970"]).toLocaleString('en')
+    + "<br>Mean Household Income : $" +  Math.round(e.features[0].properties["meanhinc1970"]).toLocaleString('en')
+    + "<br>Mean House Value : $" +  Math.round(e.features[0].properties["meanval1970"]).toLocaleString('en')
+    + "<br>Mean Contract Rent : $" +  Math.round(e.features[0].properties["meanrent1970"]).toLocaleString('en')
+
+    ;
+
+    new mapboxgl.Popup()
+    .setLngLat(coordinates)
+    .setHTML(description)
+    .addTo(map);
   });
 
-  map.on('mouseenter', 'tracts-sfsj-dta-1970', function(e) {
+    map.on('mouseenter', 'tracts-sfsj-dta-1970', function(e) {
   // Change the cursor style as a UI indicator.
-  map.getCanvas().style.cursor = 'pointer';
-
-  console.log('hello');
-  console.log(e.features[0].properties["lon"]);
-  var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
-  var description = "Tract Name <br>Something Else: ";
-  // + e.features[0].properties.name
-
-  // Ensure that if the map is zoomed out such that multiple
-  // copies of the feature are visible, the popup appears
-  // over the copy being pointed to.
-  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-  }
-
-  // Populate the popup and set its coordinates
-  // based on the feature found.
-  popup.setLngLat(coordinates)
-  .setHTML(description)
-  .addTo(map);
+    map.getCanvas().style.cursor = 'pointer';
   });
 
   map.on('mouseleave', 'tracts-sfsj-dta-1970', function() {
