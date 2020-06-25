@@ -303,24 +303,46 @@ map.on('load', function() {
 
   map.on('click', 'tracts-sfsj-dta-1970', function(e) {
     var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
-    var description =
-    "Tract Name: " + e.features[0].properties.name
-    + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied1970"]).toLocaleString('en')
-    + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied1970"]).toLocaleString('en')
-    + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied1970"]).toLocaleString('en')
-    + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc1970"]).toLocaleString('en')
-    + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval1970"]).toLocaleString('en')
-    + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent1970"]).toLocaleString('en')
-    + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage1970"]).toFixed(2)
-    + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms1970"]).toFixed(2)
-    + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms1970"]).toFixed(2)
-    + "<br>Mean # of Bathrooms: " +  (e.features[0].properties["meanbathrooms1970"]).toFixed(2)
-    + "<br>Share of Units with Own Kitchen: " +  (e.features[0].properties["sharefullkitch1970"]).toFixed(2)
-    + "<br>Share of Units with Full Plumbing: " +  (e.features[0].properties["sharefullplumb1970"]).toFixed(2)
-    + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage1970"]).toFixed(2)
-    + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack1970"]).toFixed(2)
-    + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild1970"]).toFixed(2)
-    ;
+
+    let year;
+    if (link.className == 'active') {
+      year = "1970";
+      var description =
+      "Tract Name: " + e.features[0].properties.name
+      + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied" + year]).toLocaleString('en')
+      + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
+      + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
+      + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
+      + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
+      + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
+      + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
+      + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bathrooms: " +  (e.features[0].properties["meanbathrooms" + year]).toFixed(2)
+      + "<br>Share of Units with Own Kitchen: " +  (e.features[0].properties["sharefullkitch" + year]).toFixed(2)
+      + "<br>Share of Units with Full Plumbing: " +  (e.features[0].properties["sharefullplumb" + year]).toFixed(2)
+      + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
+      + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
+      + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
+      ;
+    } else {
+      year = "2016";
+      var description =
+      "Tract Name: " + e.features[0].properties.name
+      + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied" + year]).toLocaleString('en')
+      + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
+      + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
+      + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
+      + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
+      + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
+      + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
+      + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
+      + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
+      + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
+      + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
+      ;
+    }
 
     new mapboxgl.Popup()
     .setLngLat(coordinates)
@@ -332,7 +354,7 @@ map.on('load', function() {
   // Change the cursor style as a UI indicator.
     map.getCanvas().style.cursor = 'pointer';
   });
-  
+
   map.on('mouseleave', 'tracts-sfsj-dta-1970', function() {
      map.getCanvas().style.cursor = '';
   });
