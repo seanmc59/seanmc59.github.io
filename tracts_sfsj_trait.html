@@ -320,7 +320,6 @@ map.on('load', function() {
     + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage1970"]).toFixed(2)
     + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack1970"]).toFixed(2)
     + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild1970"]).toFixed(2)
-
     ;
 
     new mapboxgl.Popup()
@@ -329,14 +328,13 @@ map.on('load', function() {
     .addTo(map);
   });
 
-    map.on('mouseenter', 'tracts-sfsj-dta-1970', function(e) {
+   map.on('mouseenter', 'tracts-sfsj-dta-1970', function(e) {
   // Change the cursor style as a UI indicator.
     map.getCanvas().style.cursor = 'pointer';
   });
-
+  
   map.on('mouseleave', 'tracts-sfsj-dta-1970', function() {
-  map.getCanvas().style.cursor = '';
-  popup.remove();
+     map.getCanvas().style.cursor = '';
   });
 });
 
