@@ -91,6 +91,11 @@ body { margin:0; padding:0; }
     margin-right: 5px;
     width: 10px;
   }
+
+
+   .mapboxgl-popup-content {
+      font-size: 10px;
+  }
   </style>
 
 <nav class="menu" id="menu1"></nav>
@@ -255,6 +260,7 @@ link.onclick = function (e) {
     );
 
     updateColorScale([126520, 260567], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+    popup.remove();
   }
 }
 var layers = document.getElementById('menu');
@@ -302,6 +308,7 @@ link1.onclick = function (e) {
       ]
     );
     updateColorScale([436264, 1652084], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+    popup.remove();
   }
 }
 
@@ -460,12 +467,22 @@ map.on('load', function() {
       + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
       + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
       + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
+      + "<br>Mean Owner Household Income: $" +  Math.round(e.features[0].properties["meanown_hinc" + year]).toLocaleString('en')
+      + "<br>Mean Renter Household Income: $" +  Math.round(e.features[0].properties["meanrent_hinc" + year]).toLocaleString('en')
       + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
       + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
       + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
+      + "<br>Mean Owned House Age: " +  (e.features[0].properties["meanown_houseage" + year]).toFixed(2)
+      + "<br>Mean Rented House Age: " +  (e.features[0].properties["meanrent_houseage" + year]).toFixed(2)
       + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Owner: " +  (e.features[0].properties["meanown_rooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Renter: " +  (e.features[0].properties["meanrent_rooms" + year]).toFixed(2)
       + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Owner: " +  (e.features[0].properties["meanown_bedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Renter: " +  (e.features[0].properties["meanrent_bedrooms" + year]).toFixed(2)
       + "<br>Mean # of Bathrooms: " +  (e.features[0].properties["meanbathrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bathrooms, Owner: " +  (e.features[0].properties["meanown_bathrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bathrooms, Renter: " +  (e.features[0].properties["meanrent_bathrooms" + year]).toFixed(2)
       + "<br>Share of Units with Own Kitchen: " +  (e.features[0].properties["sharefullkitch" + year]).toFixed(2)
       + "<br>Share of Units with Full Plumbing: " +  (e.features[0].properties["sharefullplumb" + year]).toFixed(2)
       + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
@@ -480,11 +497,19 @@ map.on('load', function() {
       + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
       + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
       + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
+      + "<br>Mean Owner Household Income: $" +  Math.round(e.features[0].properties["meanown_hinc" + year]).toLocaleString('en')
+      + "<br>Mean Renter Household Income: $" +  Math.round(e.features[0].properties["meanrent_hinc" + year]).toLocaleString('en')
       + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
       + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
       + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
+      + "<br>Mean Owned House Age: " +  (e.features[0].properties["meanown_houseage" + year]).toFixed(2)
+      + "<br>Mean Rented House Age: " +  (e.features[0].properties["meanrent_houseage" + year]).toFixed(2)
       + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Owner: " +  (e.features[0].properties["meanown_rooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Renter: " +  (e.features[0].properties["meanrent_rooms" + year]).toFixed(2)
       + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Owner: " +  (e.features[0].properties["meanown_bedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Renter: " +  (e.features[0].properties["meanrent_bedrooms" + year]).toFixed(2)
       + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
       + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
       + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
