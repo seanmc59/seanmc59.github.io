@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>Census Tract Traits San Francisco / San Jose</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css' rel='stylesheet' />
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+
+<body>
+  <style>
+  #menu1 {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 150px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0,0,0,0.4);
+  font-family: 'Open Sans', sans-serif;
+  }
+
+  .menu {
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  border-radius: 3px;
+  width: 120px;
+  border: 1px solid rgba(0,0,0,0.4);
+  font-family: 'Open Sans', sans-serif;
+  }
+  .menu a {
+  font-size: 13px;
+  color: #404040;
+  display: block;
+  margin: 0;
+  padding: 0;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  text-align: center;
+  }
+  .menu a:last-child {
+  border: none;
+  }
+  .menu a:hover {
+  background-color: #f8f8f8;
+  color: #404040;
+  }
+  .menu a.active {
+  background-color: #3887be;
+  color: #ffffff;
+  }
+  .menu a.active:hover {
+  background: #3074a4;
+  }
+
+  .legend {
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    border-radius: 3px;
+    bottom: 30px;
+    font: 13px/20px 'Open Sans', Arial, Helvetica, sans-serif;
+    padding: 10px;
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    width: 315px;
+    height: 60px;
+  }
+
+  .legend h4 {
+    margin: 0 0 10px;
+  }
+
+  .legend div span {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+  }
+
+
+   .mapboxgl-popup-content {
+      font-size: 10px;
+  }
+  </style>
+
+<nav class="menu" id="menu1"></nav>
+
+<nav class="menu" id="menu"></nav>
+
+<div id='map'></div>
+
+<div id="var-legend" class="legend"></div>
+
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2Vhbm1jNTkiLCJhIjoiY2sya2xsOWJjMXQ3cjNobzFtNHIyZnRvaiJ9._fhW0VjqPDGQ4-ekkyUdbg';
+
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/seanmc59/ckbv5bjkr0oa81imoe7mrzpev', // stylesheet location
+center: [-84.388, 33.749], // starting position [lng, lat]
+minZoom: 9
+});
+//--------------------------------------------------------
+var varlink = document.createElement('a');
+varlink.href = '#';
+varlink.className = 'active';
+varlink.textContent = 'Income';
+varlink.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  varlink1.className='';
+
+  if (link.className == 'active') {
+    map.setFilter('tracts-dta-12060', ['has', 'meanhinc1970']);
+    map.setFilter('outline', ['has', 'meanhinc1970']);
+
+    map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc1970"],
+        51850,
+        '#df0c0c',
+        97981,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([51850, 97981], ['#df0c0c','#36df0c'], "Mean Household Income 1970 ($ 2018)");
+  } else {
+    map.setFilter('tracts-dta-12060', ['has', 'meanhinc2016']);
+    map.setFilter('outline', ['has', 'meanhinc2016']);
+     map.setPaintProperty('tracts-dta-12060', 'fill-color',
+     [
+      "interpolate",
+      ["linear"],
+      ["get", "meanhinc2016"],
+      46240,
+      '#df0c0c',
+      146807,
+      '#36df0c'
+    ]
+    );
+
+    updateColorScale([46240, 146807], ['#df0c0c', '#36df0c'], "Mean Household Income 2014-2018 ($ 2018)");
+  }
+}
+var layers = document.getElementById('menu1');
+layers.appendChild(varlink);
+
+var varlink1 = document.createElement('a');
+varlink1.href = '#';
+varlink1.className = '';
+varlink1.textContent = 'House Value';
+varlink1.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  varlink.className='';
+
+
+  if (link.className == 'active') {
+    map.setFilter('tracts-dta-12060', ['has', 'meanval1970']);
+    map.setFilter('outline', ['has', 'meanval1970']);
+    map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval1970"],
+        93640,
+        '#df0c0c',
+        194435,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([93640, 194435], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+    } else {
+        map.setFilter('tracts-dta-12060', ['has', 'meanval2016']);
+        map.setFilter('outline', ['has', 'meanval2016']);
+        map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval2016"],
+        114395,
+        '#df0c0c',
+        437423,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([114395, 437423], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+    }
+ }
+var layers = document.getElementById('menu1');
+layers.appendChild(varlink1);
+
+// Add year buttons
+//-----------------------------------------------------------
+var link = document.createElement('a');
+link.href = '#';
+link.className = 'active';
+link.textContent = '1970';
+link.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  link1.className='';
+
+  if (varlink.className=='active') {
+    map.setFilter('tracts-dta-12060', ['has', 'meanhinc1970']);
+    map.setFilter('outline', ['has', 'meanhinc1970']);
+
+    map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc1970"],
+        51850,
+        '#df0c0c',
+        97981,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([51850, 97981], ['#df0c0c','#36df0c'], "Mean Household Income 1970 ($ 2018)");
+    popup.remove();
+  } else {
+    map.setFilter('tracts-dta-12060', ['has', 'meanval1970']);
+    map.setFilter('outline', ['has', 'meanval1970']);
+    map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval1970"],
+        93640,
+        '#df0c0c',
+        194435,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([93640, 194435], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+    popup.remove();
+  }
+}
+var layers = document.getElementById('menu');
+layers.appendChild(link);
+
+var link1 = document.createElement('a');
+link1.href = '#';
+link1.textContent = '2014-2018';
+link1.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  this.className = 'active';
+  link.className='';
+
+  if (varlink.className=='active') {
+    map.setFilter('tracts-dta-12060', ['has', 'meanhinc2016']);
+    map.setFilter('outline', ['has', 'meanhinc2016']);
+    map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc2016"],
+        46240,
+        '#df0c0c',
+        146807,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([46240, 146807], ['#df0c0c', '#36df0c'], "Mean Household Income 2014-2018 ($ 2018)");
+    popup.remove();
+  } else {
+        map.setFilter('tracts-dta-12060', ['has', 'meanval2016']);
+        map.setFilter('outline', ['has', 'meanval2016']);
+        map.setPaintProperty('tracts-dta-12060', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval2016"],
+        114395,
+        '#df0c0c',
+        437423,
+        '#36df0c'
+      ]
+    );
+    updateColorScale([114395, 437423], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+    popup.remove();
+  }
+}
+
+var layers = document.getElementById('menu');
+layers.appendChild(link1);
+
+
+//----------------------------------------------------------------
+var colorScale = d3.scaleLinear()
+  	.domain([51850, 97981])
+  	.range(['#df0c0c','#36df0c']);
+
+     // append a defs (for definition) element to your SVG
+var svgLegend = d3.select('#var-legend').append('svg')
+    .attr("width",600);
+
+var defs = svgLegend.append('defs');
+
+	// append a linearGradient element to the defs and give it a unique id
+var linearGradient = defs.append('linearGradient')
+		.attr('id', 'linear-gradient');
+
+// horizontal gradient
+linearGradient
+  .attr("x1", "0%")
+  .attr("y1", "0%")
+  .attr("x2", "100%")
+  .attr("y2", "0%");
+
+// append multiple color stops by using D3's data/enter step
+
+ linearGradient.append("stop")
+    .attr("offset", "0%")
+    .style("stop-color", '#df0c0c')//end in red
+    .style("stop-opacity", 1)
+
+    linearGradient.append("stop")
+    .attr("offset", "100%")
+    .style("stop-color", '#36df0c')//end in red
+    .style("stop-opacity", 1)
+
+// append title
+svgLegend.append("text")
+  .attr("class", "legendTitle")
+  .attr("x", 0)
+  .attr("y", 15)
+  .style("text-anchor", "left")
+  .text("Mean Household Income 1970 ($ 2018)");
+
+// draw the rectangle and fill with gradient
+svgLegend.append("rect")
+  .attr("x", 20)
+  .attr("y", 25)
+  .attr("width", 281)
+  .attr("height", 15)
+  .style("fill", "url(#linear-gradient)");
+
+//create tick marks
+var xLeg = d3.scaleLinear()
+  .domain([49335, 110544])
+  .range([20, 300]);
+
+var axisLeg = d3.axisBottom(xLeg)
+  .tickValues(colorScale.domain())
+
+svgLegend
+  .attr("class", "axis")
+  .append("g")
+  .attr("transform", "translate(0, 41)")
+  .call(axisLeg);
+
+ // update the colour scale, restyle the plot points and legend
+ // Take min, 10p, 50p, 90p, max for domain and two colors at 10 and 90p both size 5 vectors
+function updateColorScale(domainch, colors, varname) {
+    // clear current legend
+    svgLegend.selectAll('*').remove();
+
+    // create color scale
+    var colorScale = d3.scaleLinear()
+  	.domain(domainch)
+  	.range(colors);
+
+    var defs = svgLegend.append('defs');
+        // append a linearGradient element to the defs and give it a unique id
+
+    var linearGradient = defs.append('linearGradient')
+            .attr('id', 'linear-gradient');
+
+    // horizontal gradient
+    linearGradient
+      .attr("x1", "0%")
+      .attr("y1", "0%")
+      .attr("x2", "100%")
+      .attr("y2", "0%");
+
+    // Fix Color Scale on p10 and p90
+    linearGradient.append("stop")
+    .attr("offset", "0%")
+    .style("stop-color", colors[0])//end in red
+    .style("stop-opacity", 1)
+
+    linearGradient.append("stop")
+    .attr("offset", "100%")
+    .style("stop-color", colors[1])//end in red
+    .style("stop-opacity", 1)
+
+    // append title
+    svgLegend.append("text")
+      .attr("class", "legendTitle")
+      .attr("x", 0)
+      .attr("y", 15)
+      .style("text-anchor", "left")
+      .text(varname);
+
+    // draw the rectangle and fill with gradient
+
+    // draw the rectangle and fill with gradient
+    svgLegend.append("rect")
+      .attr("x", 20)
+      .attr("y", 25)
+      .attr("width", 281)
+      .attr("height", 15)
+      .style("fill", "url(#linear-gradient)");
+
+
+    //create tick marks
+    var xLeg = d3.scaleLinear()
+      .domain(domainch)
+      .range([20, 300]);
+
+    var axisLeg = d3.axisBottom(xLeg)
+      .tickValues(colorScale.domain())
+
+    svgLegend
+      .attr("class", "axis")
+      .append("g")
+      .attr("transform", "translate(0, 41)")
+      .call(axisLeg);
+
+  }
+
+//--------------------------------------------------------
+// Add popups with tract data
+var popup;
+map.on('load', function() {
+
+  map.on('click', 'tracts-dta-12060', function(e) {
+    var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
+
+    let year;
+    if (link.className == 'active') {
+      year = "1970";
+      var description =
+      "Tract Name: " + e.features[0].properties.name
+      + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied" + year]).toLocaleString('en')
+      + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
+      + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
+      + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
+      + "<br>Mean Owner Household Income: $" +  Math.round(e.features[0].properties["meanown_hinc" + year]).toLocaleString('en')
+      + "<br>Mean Renter Household Income: $" +  Math.round(e.features[0].properties["meanrent_hinc" + year]).toLocaleString('en')
+      + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
+      + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
+      + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
+      + "<br>Mean Owned House Age: " +  (e.features[0].properties["meanown_houseage" + year]).toFixed(2)
+      + "<br>Mean Rented House Age: " +  (e.features[0].properties["meanrent_houseage" + year]).toFixed(2)
+      + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Owner: " +  (e.features[0].properties["meanown_rooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Renter: " +  (e.features[0].properties["meanrent_rooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Owner: " +  (e.features[0].properties["meanown_bedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Renter: " +  (e.features[0].properties["meanrent_bedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bathrooms: " +  (e.features[0].properties["meanbathrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bathrooms, Owner: " +  (e.features[0].properties["meanown_bathrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bathrooms, Renter: " +  (e.features[0].properties["meanrent_bathrooms" + year]).toFixed(2)
+      + "<br>Share of Units with Own Kitchen: " +  (e.features[0].properties["sharefullkitch" + year]).toFixed(2)
+      + "<br>Share of Units with Full Plumbing: " +  (e.features[0].properties["sharefullplumb" + year]).toFixed(2)
+      + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
+      + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
+      + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
+      ;
+    } else {
+      year = "2016";
+      var description =
+      "Tract Name: " + e.features[0].properties.name
+      + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied" + year]).toLocaleString('en')
+      + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
+      + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
+      + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
+      + "<br>Mean Owner Household Income: $" +  Math.round(e.features[0].properties["meanown_hinc" + year]).toLocaleString('en')
+      + "<br>Mean Renter Household Income: $" +  Math.round(e.features[0].properties["meanrent_hinc" + year]).toLocaleString('en')
+      + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
+      + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
+      + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
+      + "<br>Mean Owned House Age: " +  (e.features[0].properties["meanown_houseage" + year]).toFixed(2)
+      + "<br>Mean Rented House Age: " +  (e.features[0].properties["meanrent_houseage" + year]).toFixed(2)
+      + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Owner: " +  (e.features[0].properties["meanown_rooms" + year]).toFixed(2)
+      + "<br>Mean # of Rooms, Renter: " +  (e.features[0].properties["meanrent_rooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Owner: " +  (e.features[0].properties["meanown_bedrooms" + year]).toFixed(2)
+      + "<br>Mean # of Bedrooms, Renter: " +  (e.features[0].properties["meanrent_bedrooms" + year]).toFixed(2)
+      + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
+      + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
+      + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
+      ;
+    }
+
+    popup = new mapboxgl.Popup();
+    popup.setLngLat(coordinates)
+    .setHTML(description)
+    .addTo(map);
+  });
+
+   map.on('mouseenter', 'tracts-dta-12060', function(e) {
+  // Change the cursor style as a UI indicator.
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseleave', 'tracts-dta-12060', function() {
+     map.getCanvas().style.cursor = '';
+  });
+});
+
+</script>
+
+</body>
+</html>
