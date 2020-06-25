@@ -460,62 +460,63 @@ map.on('load', function() {
     var coordinates = [e.features[0].properties.lon, e.features[0].properties.lat];
 
     let year;
+    var access = e.features[0].properties;
     if (link.className == 'active') {
       year = "1970";
       var description =
-      "Tract Name: " + e.features[0].properties.name
-      + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied" + year]).toLocaleString('en')
-      + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
-      + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
-      + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
-      + "<br>Mean Owner Household Income: $" +  Math.round(e.features[0].properties["meanown_hinc" + year]).toLocaleString('en')
-      + "<br>Mean Renter Household Income: $" +  Math.round(e.features[0].properties["meanrent_hinc" + year]).toLocaleString('en')
-      + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
-      + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
-      + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
-      + "<br>Mean Owned House Age: " +  (e.features[0].properties["meanown_houseage" + year]).toFixed(2)
-      + "<br>Mean Rented House Age: " +  (e.features[0].properties["meanrent_houseage" + year]).toFixed(2)
-      + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
-      + "<br>Mean # of Rooms, Owner: " +  (e.features[0].properties["meanown_rooms" + year]).toFixed(2)
-      + "<br>Mean # of Rooms, Renter: " +  (e.features[0].properties["meanrent_rooms" + year]).toFixed(2)
-      + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bedrooms, Owner: " +  (e.features[0].properties["meanown_bedrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bedrooms, Renter: " +  (e.features[0].properties["meanrent_bedrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bathrooms: " +  (e.features[0].properties["meanbathrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bathrooms, Owner: " +  (e.features[0].properties["meanown_bathrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bathrooms, Renter: " +  (e.features[0].properties["meanrent_bathrooms" + year]).toFixed(2)
-      + "<br>Share of Units with Own Kitchen: " +  (e.features[0].properties["sharefullkitch" + year]).toFixed(2)
-      + "<br>Share of Units with Full Plumbing: " +  (e.features[0].properties["sharefullplumb" + year]).toFixed(2)
-      + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
-      + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
-      + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
+      "Tract Name: " + access.name
+      + "<br># Occupied Units: " + ((access["occupied" + year] == undefined) ? "N/A" : (Math.round(access["occupied" + year]).toLocaleString('en')))
+      + "<br># Owner Occupied: " + ((access["owneroccupied" + year] == undefined) ? "N/A" : Math.round(access["owneroccupied" + year]).toLocaleString('en'))
+      + "<br># Renter Occupied: " + ((access["renteroccupied" + year] == undefined) ? "N/A" : Math.round(access["renteroccupied" + year]).toLocaleString('en'))
+      + "<br>Mean Household Income: $" + ((access["meanhinc" + year] == undefined) ? "N/A" : Math.round(access["meanhinc" + year]).toLocaleString('en'))
+      + "<br>Mean Owner Household Income: $" + ((access["meanown_hinc" + year] == undefined) ? "N/A" :  Math.round(access["meanown_hinc" + year]).toLocaleString('en'))
+      + "<br>Mean Renter Household Income: $" + ((access["meanrent_hinc" + year] == undefined) ? "N/A" : Math.round(access["meanrent_hinc" + year]).toLocaleString('en'))
+      + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
+      + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
+      + "<br>Mean House Age: " +  ((access["meanhouseage" + year] == undefined) ? "N/A" : (access["meanhouseage" + year]).toFixed(2))
+      + "<br>Mean Owned House Age: " +  ((access["meanown_houseage" + year] == undefined) ? "N/A" : (access["meanown_houseage" + year]).toFixed(2))
+      + "<br>Mean Rented House Age: " +  ((access["meanrent_houseage" + year] == undefined) ? "N/A" : (access["meanrent_houseage" + year]).toFixed(2))
+      + "<br>Mean # of Rooms: " +  ((access["meanrooms" + year] == undefined) ? "N/A" : (access["meanrooms" + year]).toFixed(2))
+      + "<br>Mean # of Rooms, Owner: " +  ((access["meanown_rooms" + year] == undefined) ? "N/A" : (access["meanown_rooms" + year]).toFixed(2))
+      + "<br>Mean # of Rooms, Renter: " +  ((access["meanrent_rooms" + year] == undefined) ? "N/A" : (access["meanrent_rooms" + year]).toFixed(2))
+      + "<br>Mean # of Bedrooms: " +  ((access["meanbedrooms" + year] == undefined) ? "N/A" : (access["meanbedrooms" + year]).toFixed(2))
+      + "<br>Mean # of Bedrooms, Owner: " +  ((access["meanown_bedrooms" + year] == undefined) ? "N/A" : (access["meanown_bedrooms" + year]).toFixed(2))
+      + "<br>Mean # of Bedrooms, Renter: " +  ((access["meanrent_bedrooms" + year] == undefined) ? "N/A" : (access["meanrent_bedrooms" + year]).toFixed(2))
+      + "<br>Mean # of Bathrooms: " +  ((access["meanbathrooms" + year] == undefined) ? "N/A" : (access["meanbathrooms" + year]).toFixed(2))
+      + "<br>Mean # of Bathrooms, Owner: " +  ((access["meanown_bathrooms" + year] == undefined) ? "N/A" : (access["meanown_bathrooms" + year]).toFixed(2))
+      + "<br>Mean # of Bathrooms, Renter: " +  ((access["meanrent_bathrooms" + year] == undefined) ? "N/A" : (access["meanrent_bathrooms" + year]).toFixed(2))
+      + "<br>Share of Units with Own Kitchen: " +  ((access["sharefullkitch" + year] == undefined) ? "N/A" : (access["sharefullkitch" + year]).toFixed(2))
+      + "<br>Share of Units with Full Plumbing: " +  ((access["sharefullplumb" + year] == undefined) ? "N/A" : (access["sharefullplumb" + year]).toFixed(2))
+      + "<br>Mean Age of Household Head: " + ((access["meanage" + year] == undefined) ? "N/A" : (access["meanage" + year]).toFixed(2))
+      + "<br>Share of Households Black: " +  ((access["shareblack" + year] == undefined) ? "N/A" : (access["shareblack" + year]).toFixed(2))
+      + "<br>Share of Households with Child: " +  ((access["sharechild" + year] == undefined) ? "N/A" : (access["sharechild" + year]).toFixed(2))
       ;
     } else {
       year = "2016";
-      var description =
-      "Tract Name: " + e.features[0].properties.name
-      + "<br># Occupied Units: " +  Math.round(e.features[0].properties["occupied" + year]).toLocaleString('en')
-      + "<br># Owner Occupied: " +  Math.round(e.features[0].properties["owneroccupied" + year]).toLocaleString('en')
-      + "<br># Renter Occupied: " +  Math.round(e.features[0].properties["renteroccupied" + year]).toLocaleString('en')
-      + "<br>Mean Household Income: $" +  Math.round(e.features[0].properties["meanhinc" + year]).toLocaleString('en')
-      + "<br>Mean Owner Household Income: $" +  Math.round(e.features[0].properties["meanown_hinc" + year]).toLocaleString('en')
-      + "<br>Mean Renter Household Income: $" +  Math.round(e.features[0].properties["meanrent_hinc" + year]).toLocaleString('en')
-      + "<br>Mean House Value: $" +  Math.round(e.features[0].properties["meanval" + year]).toLocaleString('en')
-      + "<br>Mean Contract Rent: $" +  Math.round(e.features[0].properties["meanrent" + year]).toLocaleString('en')
-      + "<br>Mean House Age: " +  (e.features[0].properties["meanhouseage" + year]).toFixed(2)
-      + "<br>Mean Owned House Age: " +  (e.features[0].properties["meanown_houseage" + year]).toFixed(2)
-      + "<br>Mean Rented House Age: " +  (e.features[0].properties["meanrent_houseage" + year]).toFixed(2)
-      + "<br>Mean # of Rooms: " +  (e.features[0].properties["meanrooms" + year]).toFixed(2)
-      + "<br>Mean # of Rooms, Owner: " +  (e.features[0].properties["meanown_rooms" + year]).toFixed(2)
-      + "<br>Mean # of Rooms, Renter: " +  (e.features[0].properties["meanrent_rooms" + year]).toFixed(2)
-      + "<br>Mean # of Bedrooms: " +  (e.features[0].properties["meanbedrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bedrooms, Owner: " +  (e.features[0].properties["meanown_bedrooms" + year]).toFixed(2)
-      + "<br>Mean # of Bedrooms, Renter: " +  (e.features[0].properties["meanrent_bedrooms" + year]).toFixed(2)
-      + "<br>Mean Age of Household Head: " +  (e.features[0].properties["meanage" + year]).toFixed(2)
-      + "<br>Share of Households Black: " +  (e.features[0].properties["shareblack" + year]).toFixed(2)
-      + "<br>Share of Households with Child: " +  (e.features[0].properties["sharechild" + year]).toFixed(2)
-      ;
-    }
+       var description =
+       "Tract Name: " + access.name
+       + "<br># Occupied Units: " + ((access["occupied" + year] == undefined) ? "N/A" : (Math.round(access["occupied" + year]).toLocaleString('en')))
+       + "<br># Owner Occupied: " + ((access["owneroccupied" + year] == undefined) ? "N/A" : Math.round(access["owneroccupied" + year]).toLocaleString('en'))
+       + "<br># Renter Occupied: " + ((access["renteroccupied" + year] == undefined) ? "N/A" : Math.round(access["renteroccupied" + year]).toLocaleString('en'))
+       + "<br>Mean Household Income: $" + ((access["meanhinc" + year] == undefined) ? "N/A" : Math.round(access["meanhinc" + year]).toLocaleString('en'))
+       + "<br>Mean Owner Household Income: $" + ((access["meanown_hinc" + year] == undefined) ? "N/A" :  Math.round(access["meanown_hinc" + year]).toLocaleString('en'))
+       + "<br>Mean Renter Household Income: $" + ((access["meanrent_hinc" + year] == undefined) ? "N/A" : Math.round(access["meanrent_hinc" + year]).toLocaleString('en'))
+       + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
+       + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
+       + "<br>Mean House Age: " +  ((access["meanhouseage" + year] == undefined) ? "N/A" : (access["meanhouseage" + year]).toFixed(2))
+       + "<br>Mean Owned House Age: " +  ((access["meanown_houseage" + year] == undefined) ? "N/A" : (access["meanown_houseage" + year]).toFixed(2))
+       + "<br>Mean Rented House Age: " +  ((access["meanrent_houseage" + year] == undefined) ? "N/A" : (access["meanrent_houseage" + year]).toFixed(2))
+       + "<br>Mean # of Rooms: " +  ((access["meanrooms" + year] == undefined) ? "N/A" : (access["meanrooms" + year]).toFixed(2))
+       + "<br>Mean # of Rooms, Owner: " +  ((access["meanown_rooms" + year] == undefined) ? "N/A" : (access["meanown_rooms" + year]).toFixed(2))
+       + "<br>Mean # of Rooms, Renter: " +  ((access["meanrent_rooms" + year] == undefined) ? "N/A" : (access["meanrent_rooms" + year]).toFixed(2))
+       + "<br>Mean # of Bedrooms: " +  ((access["meanbedrooms" + year] == undefined) ? "N/A" : (access["meanbedrooms" + year]).toFixed(2))
+       + "<br>Mean # of Bedrooms, Owner: " +  ((access["meanown_bedrooms" + year] == undefined) ? "N/A" : (access["meanown_bedrooms" + year]).toFixed(2))
+       + "<br>Mean # of Bedrooms, Renter: " +  ((access["meanrent_bedrooms" + year] == undefined) ? "N/A" : (access["meanrent_bedrooms" + year]).toFixed(2))
+       + "<br>Mean Age of Household Head: " + ((access["meanage" + year] == undefined) ? "N/A" : (access["meanage" + year]).toFixed(2))
+       + "<br>Share of Households Black: " +  ((access["shareblack" + year] == undefined) ? "N/A" : (access["shareblack" + year]).toFixed(2))
+       + "<br>Share of Households with Child: " +  ((access["sharechild" + year] == undefined) ? "N/A" : (access["sharechild" + year]).toFixed(2))
+       ;
+     }
 
     popup = new mapboxgl.Popup();
     popup.setLngLat(coordinates)
