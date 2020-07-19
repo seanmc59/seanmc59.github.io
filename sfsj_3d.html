@@ -76,7 +76,7 @@ body { margin:0; padding:0; }
     position: absolute;
     left: 10px;
     z-index: 1;
-    width: 315px;
+    width: 340px;
     height: 60px;
   }
 
@@ -121,18 +121,22 @@ zoom: 10
 
 // Add year buttons
 //-----------------------------------------------------------
-var link = document.createElement('a');
-link.href = '#';
-link.className = 'active';
-link.textContent = '1970';
-link.onclick = function (e) {
+var link1970 = document.createElement('a');
+link1970.href = '#';
+link1970.className = 'active';
+link1970.textContent = '1970';
+link1970.onclick = function (e) {
   e.preventDefault();
   e.stopPropagation();
   this.className = 'active';
-  link1.className='';
+  link1980.className='';
+  link1990.className='';
+  link2000.className='';
+  link2008_12.className='';
+  link2014_18.className='';
 
-    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval1970sc'])
-    map.setFilter('tracts-val-sfsj', ['has', 'meanval1970']);
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval1970hund'])
+    map.setFilter('tracts-val-sfsj', ['has', 'meanval1970hund']);
     map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-color',
                          [
       "interpolate",
@@ -140,51 +144,203 @@ link.onclick = function (e) {
       ["get", "meanval1970"],
       126520,
       '#df0c0c',
-      260567,
+       260567,
       '#36df0c'
     ]
    );
 
 
-    updateColorScale([126520, 260567], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+    updateColorScale([126520,  260567], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
     popup.remove();
 
 }
 var layers = document.getElementById('menu');
-layers.appendChild(link);
+layers.appendChild(link1970);
+//------------------------
+var link1980 = document.createElement('a');
+link1980.href = '#';
+link1980.className = '';
+link1980.textContent = '1980';
+link1980.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  link1970.className='';
+  link1990.className='';
+  link2000.className='';
+  link2008_12.className='';
+  link2014_18.className='';
 
-var link1 = document.createElement('a');
-link1.href = '#';
-link1.textContent = '2014-2018';
-link1.onclick = function (e) {
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval1980hund'])
+    map.setFilter('tracts-val-sfsj', ['has', 'meanval1980hund']);
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-color',
+                         [
+      "interpolate",
+      ["linear"],
+      ["get", "meanval1980"],
+      194239,
+      '#df0c0c',
+      562499,
+      '#36df0c'
+    ]
+   );
+
+
+    updateColorScale([194239,  562499], ['#df0c0c','#36df0c'], "Mean House Value 1980 ($ 2018)");
+    popup.remove();
+
+}
+
+var layers = document.getElementById('menu');
+layers.appendChild(link1980);
+//------------------------
+
+var link1990 = document.createElement('a');
+link1990.href = '#';
+link1990.className = '';
+link1990.textContent = '1990';
+link1990.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  link1970.className='';
+  link1980.className='';
+  link2000.className='';
+  link2008_12.className='';
+  link2014_18.className='';
+
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval1990hund'])
+    map.setFilter('tracts-val-sfsj', ['has', 'meanval1990hund']);
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-color',
+                         [
+      "interpolate",
+      ["linear"],
+      ["get", "meanval1990"],
+      295753,
+      '#df0c0c',
+      856207,
+      '#36df0c'
+    ]
+   );
+
+
+    updateColorScale([295753,  856207], ['#df0c0c','#36df0c'], "Mean House Value 1990 ($ 2018)");
+    popup.remove();
+
+}
+var layers = document.getElementById('menu');
+layers.appendChild(link1990);
+
+//------------------------
+var link2000 = document.createElement('a');
+link2000.href = '#';
+link2000.className = '';
+link2000.textContent = '2000';
+link2000.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  link1970.className='';
+  link1980.className='';
+  link1990.className='';
+  link2008_12.className='';
+  link2014_18.className='';
+
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval2000hund'])
+    map.setFilter('tracts-val-sfsj', ['has', 'meanval2000hund']);
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-color',
+                         [
+      "interpolate",
+      ["linear"],
+      ["get", "meanval2000"],
+      295742,
+      '#df0c0c',
+      1047709 ,
+      '#36df0c'
+    ]
+   );
+
+
+    updateColorScale([295742, 1047709], ['#df0c0c','#36df0c'], "Mean House Value 2000 ($ 2018)");
+    popup.remove();
+
+}
+var layers = document.getElementById('menu');
+layers.appendChild(link2000);
+
+//------------------------
+var link2008_12 = document.createElement('a');
+link2008_12.href = '#';
+link2008_12.className = '';
+link2008_12.textContent = '2008-2012';
+link2008_12.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  this.className = 'active';
+  link1970.className='';
+  link1980.className='';
+  link1990.className='';
+  link2000.className='';
+  link2014_18.className='';
+
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval2010hund'])
+    map.setFilter('tracts-val-sfsj', ['has', 'meanval2010hund']);
+    map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-color',
+                         [
+      "interpolate",
+      ["linear"],
+      ["get", "meanval2010"],
+      339825,
+      '#df0c0c',
+      1216183,
+      '#36df0c'
+    ]
+   );
+
+
+    updateColorScale([339825, 1216183], ['#df0c0c','#36df0c'], "Mean House Value 2008-2012 ($ 2018)");
+    popup.remove();
+
+}
+var layers = document.getElementById('menu');
+layers.appendChild(link2008_12);
+//------------------------
+var link2014_18 = document.createElement('a');
+link2014_18.href = '#';
+link2014_18.textContent = '2014-2018';
+link2014_18.onclick = function (e) {
   e.preventDefault();
   e.stopPropagation();
 
   this.className = 'active';
-  link.className='';
+  link1970.className='';
+  link1980.className='';
+  link1990.className='';
+  link2000.className='';
+  link2008_12.className='';
 
-  map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval2016sc'])
-  map.setFilter('tracts-val-sfsj', ['has', 'meanval2016']);
+  map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-height', ['get', 'meanval2016hund'])
+  map.setFilter('tracts-val-sfsj', ['has', 'meanval2016hund']);
   console.log('test');
   map.setPaintProperty('tracts-val-sfsj', 'fill-extrusion-color',
                        [
     "interpolate",
     ["linear"],
     ["get", "meanval2016"],
-    436264,
+    436178,
     '#df0c0c',
-    1652084,
+    1647429 ,
     '#36df0c'
   ]
   );
-  updateColorScale([436264, 1652084], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+  updateColorScale([436178, 1647429], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
   popup.remove();
 }
 
 var layers = document.getElementById('menu');
-layers.appendChild(link1);
+layers.appendChild(link2014_18);
 
-
+//----------------------------------------------------------------
 //----------------------------------------------------------------
 var colorScale = d3.scaleLinear()
   	.domain([126520, 260567])
@@ -229,7 +385,7 @@ svgLegend.append("text")
 
 // draw the rectangle and fill with gradient
 svgLegend.append("rect")
-  .attr("x", 20)
+  .attr("x", 25)
   .attr("y", 25)
   .attr("width", 281)
   .attr("height", 15)
@@ -238,15 +394,19 @@ svgLegend.append("rect")
 //create tick marks
 var xLeg = d3.scaleLinear()
   .domain([126520, 260567])
-  .range([20, 300]);
+  .range([20, 300])
+  ;
 
 var axisLeg = d3.axisBottom(xLeg)
   .tickValues(colorScale.domain())
+  .tickFormat(x => (x == colorScale.domain()[0])
+              ? `< $${x.toLocaleString('en')}`
+              : `> $${x.toLocaleString('en')}`);
 
 svgLegend
   .attr("class", "axis")
   .append("g")
-  .attr("transform", "translate(0, 41)")
+  .attr("transform", "translate(5, 41)")
   .call(axisLeg);
 
  // update the colour scale, restyle the plot points and legend
@@ -296,7 +456,7 @@ function updateColorScale(domainch, colors, varname) {
 
     // draw the rectangle and fill with gradient
     svgLegend.append("rect")
-      .attr("x", 20)
+      .attr("x", 25)
       .attr("y", 25)
       .attr("width", 281)
       .attr("height", 15)
@@ -310,11 +470,15 @@ function updateColorScale(domainch, colors, varname) {
 
     var axisLeg = d3.axisBottom(xLeg)
       .tickValues(colorScale.domain())
+      .tickFormat(x => (x == colorScale.domain()[0])
+              ? `< $${x.toLocaleString('en')}`
+              : `> $${x.toLocaleString('en')}`);
+
 
     svgLegend
       .attr("class", "axis")
       .append("g")
-      .attr("transform", "translate(0, 41)")
+      .attr("transform", "translate(5, 41)")
       .call(axisLeg);
 
   }
@@ -329,14 +493,47 @@ map.on('load', function() {
 
     let year;
     var access = e.features[0].properties;
-    if (link.className == 'active') {
+    if (link1970.className == 'active') {
       year = "1970";
       var description =
       "Tract Name: " + access.name
       + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
       + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
       ;
-    } else {
+    }
+    else if (link1980.className == 'active') {
+      year = "1980";
+      var description =
+      "Tract Name: " + access.name
+      + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
+      + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
+      ;
+    }
+    else if (link1990.className == 'active') {
+      year = "1990";
+      var description =
+      "Tract Name: " + access.name
+      + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
+      + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
+      ;
+    }
+    else if (link2000.className == 'active') {
+      year = "2000";
+      var description =
+      "Tract Name: " + access.name
+      + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
+      + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
+      ;
+    }
+     else if (link2008_12.className == 'active') {
+      year = "2010";
+      var description =
+      "Tract Name: " + access.name
+      + "<br>Mean House Value: $" +  ((access["meanval" + year] == undefined) ? "N/A" : Math.round(access["meanval" + year]).toLocaleString('en'))
+      + "<br>Mean Contract Rent: $" +  ((access["meanrent" + year] == undefined) ? "N/A" : Math.round(access["meanrent" + year]).toLocaleString('en'))
+      ;
+    }
+    else {
       year = "2016";
        var description =
        "Tract Name: " + access.name
