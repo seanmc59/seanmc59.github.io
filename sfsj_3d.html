@@ -58,11 +58,11 @@ body { margin:0; padding:0; }
   color: #404040;
   }
   .menu a.active {
-  background-color: #3887be;
+  background-color: #3d3b3b;
   color: #ffffff;
   }
   .menu a.active:hover {
-  background: #3074a4;
+  background: #333333;
   }
 
   .legend {
@@ -117,6 +117,9 @@ pitch: 60,
 bearing: 30,
 zoom: 10
 });
+
+var nav = new mapboxgl.NavigationControl({showZoom: true});
+map.addControl(nav, 'bottom-right');
 //--------------------------------------------------------
 
 // Add year buttons
