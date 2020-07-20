@@ -140,12 +140,32 @@ var nav = new mapboxgl.NavigationControl({showZoom: true});
 map.addControl(nav, 'bottom-right');
 
 // Add geocoder address
-map.addControl(
-   new MapboxGeocoder({
+var geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-    }), 'top-left'
+        mapboxgl: mapboxgl,
+       flyTo: {
+          bearing: 0,
+          pitch: 0,
+          zoom: 12,
+      },
+        marker: true
+    });
+
+map.addControl(
+   geocoder,
+  'top-left'
 );
+
+// Auto click result of geocoder
+geocoder.on('result', function(e) {
+    let lng = e.result.center[0];
+    let lat = e.result.center[1];
+    // console.log(lng);
+    // console.log(lat);
+
+    // map.fire('click', e.result); // can't get click on correct location
+});
+
 //--------------------------------------------------------
 
 // Add year buttons
