@@ -153,7 +153,27 @@ varlink.onclick = function (e) {
     );
 
     updateColorScale([48360, 109520], ['#df0c0c','#36df0c'], "Mean Household Income 1970 ($ 2018)");
-  } else {
+  }
+
+  else if (link1.className == 'active') {
+    map.setFilter('tracts-js-dta', ['has', 'meanhinc1980']);
+    map.setFilter('outline', ['has', 'meanhinc1980']);
+    map.setPaintProperty('tracts-js-dta', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc1980"],
+        35007,
+        '#df0c0c',
+        103637,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([35007, 103637], ['#df0c0c', '#36df0c'], "Mean Household Income 1980 ($ 2018)");
+  }
+
+  else {
     map.setFilter('tracts-js-dta', ['has', 'meanhinc2016']);
     map.setFilter('outline', ['has', 'meanhinc2016']);
      map.setPaintProperty('tracts-js-dta', 'fill-color',
@@ -201,7 +221,25 @@ varlink1.onclick = function (e) {
     );
 
     updateColorScale([110560, 255550], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
-    } else {
+    }
+    else if (link1.className == 'active') {
+     map.setFilter('tracts-js-dta', ['has', 'meanval1980']);
+        map.setFilter('outline', ['has', 'meanval1980']);
+        map.setPaintProperty('tracts-js-dta', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval1980"],
+        99401,
+        '#df0c0c',
+        302754,
+        '#36df0c'
+      ]
+    );
+    updateColorScale([99401, 302754], ['#df0c0c','#36df0c'], "Mean House Value 1980 ($ 2018)");
+   }
+
+    else {
         map.setFilter('tracts-js-dta', ['has', 'meanval2016']);
         map.setFilter('outline', ['has', 'meanval2016']);
         map.setPaintProperty('tracts-js-dta', 'fill-color',
