@@ -233,6 +233,7 @@ link.onclick = function (e) {
   e.stopPropagation();
   this.className = 'active';
   link1.className='';
+  link2.className='';
 
   if (varlink.className=='active') {
     map.setFilter('tracts-js-dta', ['has', 'meanhinc1970']);
@@ -276,13 +277,65 @@ layers.appendChild(link);
 
 var link1 = document.createElement('a');
 link1.href = '#';
-link1.textContent = '2014-2018';
+link1.textContent = '1980';
 link1.onclick = function (e) {
   e.preventDefault();
   e.stopPropagation();
 
   this.className = 'active';
   link.className='';
+  link2.className='';
+
+  if (varlink.className=='active') {
+    map.setFilter('tracts-js-dta', ['has', 'meanhinc1980']);
+    map.setFilter('outline', ['has', 'meanhinc1980']);
+    map.setPaintProperty('tracts-js-dta', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanhinc1980"],
+        35007,
+        '#df0c0c',
+        103637,
+        '#36df0c'
+      ]
+    );
+
+    updateColorScale([35007, 103637], ['#df0c0c', '#36df0c'], "Mean Household Income 1980 ($ 2018)");
+    popup.remove();
+  } else {
+        map.setFilter('tracts-js-dta', ['has', 'meanval1980']);
+        map.setFilter('outline', ['has', 'meanval1980']);
+        map.setPaintProperty('tracts-js-dta', 'fill-color',
+       [
+        "interpolate",
+        ["linear"],
+        ["get", "meanval1980"],
+        99401,
+        '#df0c0c',
+        302754,
+        '#36df0c'
+      ]
+    );
+    updateColorScale([99401, 302754], ['#df0c0c','#36df0c'], "Mean House Value 1980 ($ 2018)");
+    popup.remove();
+  }
+}
+
+var layers = document.getElementById('menu');
+layers.appendChild(link1);
+//-----
+
+var link2 = document.createElement('a');
+link2.href = '#';
+link2.textContent = '2014-2018';
+link2.onclick = function (e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  this.className = 'active';
+  link.className='';
+  link1.className='';
 
   if (varlink.className=='active') {
     map.setFilter('tracts-js-dta', ['has', 'meanhinc2016']);
@@ -321,7 +374,7 @@ link1.onclick = function (e) {
 }
 
 var layers = document.getElementById('menu');
-layers.appendChild(link1);
+layers.appendChild(link2);
 
 
 //----------------------------------------------------------------
@@ -499,7 +552,13 @@ map.on('load', function() {
       + "<br>Share of Households with Child: " +  ((access["sharechild" + year] == undefined) ? "N/A" : (access["sharechild" + year]).toFixed(2))
       ;
     } else {
-      year = "2016";
+      if (link1.className == 'active') {
+          year = "1980";
+      }
+      else {
+          year = '2016';
+      }
+
        var description =
        "Tract Name: " + access.name
        + "<br># Occupied Units: " + ((access["occupied" + year] == undefined) ? "N/A" : (Math.round(access["occupied" + year]).toLocaleString('en')))
