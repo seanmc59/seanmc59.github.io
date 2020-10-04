@@ -191,15 +191,15 @@ link1970.onclick = function (e) {
       "interpolate",
       ["linear"],
       ["get", "meanval1970"],
-      126520,
+      129770,
       '#df0c0c',
-       260567,
+      267260,
       '#36df0c'
     ]
    );
 
 
-    updateColorScale([126520,  260567], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2018)");
+    updateColorScale([129770,  267260], ['#df0c0c','#36df0c'], "Mean House Value 1970 ($ 2020)");
     popup.remove();
 
 }
@@ -227,15 +227,15 @@ link1980.onclick = function (e) {
       "interpolate",
       ["linear"],
       ["get", "meanval1980"],
-      194239,
+       199228,
       '#df0c0c',
-      562499,
+       576947,
       '#36df0c'
     ]
    );
 
 
-    updateColorScale([194239,  562499], ['#df0c0c','#36df0c'], "Mean House Value 1980 ($ 2018)");
+    updateColorScale([199228,  576947], ['#df0c0c','#36df0c'], "Mean House Value 1980 ($ 2020)");
     popup.remove();
 
 }
@@ -265,15 +265,15 @@ link1990.onclick = function (e) {
       "interpolate",
       ["linear"],
       ["get", "meanval1990"],
-      295753,
+      303350,
       '#df0c0c',
-      856207,
+      878200,
       '#36df0c'
     ]
    );
 
 
-    updateColorScale([295753,  856207], ['#df0c0c','#36df0c'], "Mean House Value 1990 ($ 2018)");
+    updateColorScale([303350,  878200], ['#df0c0c','#36df0c'], "Mean House Value 1990 ($ 2020)");
     popup.remove();
 
 }
@@ -302,15 +302,15 @@ link2000.onclick = function (e) {
       "interpolate",
       ["linear"],
       ["get", "meanval2000"],
-      295742,
+      303338,
       '#df0c0c',
-      1047709 ,
+      1074621,
       '#36df0c'
     ]
    );
 
 
-    updateColorScale([295742, 1047709], ['#df0c0c','#36df0c'], "Mean House Value 2000 ($ 2018)");
+    updateColorScale([303338, 1074621], ['#df0c0c','#36df0c'], "Mean House Value 2000 ($ 2020)");
     popup.remove();
 
 }
@@ -339,15 +339,15 @@ link2008_12.onclick = function (e) {
       "interpolate",
       ["linear"],
       ["get", "meanval2010"],
-      339825,
+      348554,
       '#df0c0c',
-      1216183,
+      1247422,
       '#36df0c'
     ]
    );
 
 
-    updateColorScale([339825, 1216183], ['#df0c0c','#36df0c'], "Mean House Value 2008-2012 ($ 2018)");
+    updateColorScale([348554, 1247422], ['#df0c0c','#36df0c'], "Mean House Value 2008-2012 ($ 2020)");
     popup.remove();
 
 }
@@ -376,13 +376,13 @@ link2014_18.onclick = function (e) {
     "interpolate",
     ["linear"],
     ["get", "meanval2016"],
-    436178,
+    447382,
     '#df0c0c',
-    1647429 ,
+    1689746 ,
     '#36df0c'
   ]
   );
-  updateColorScale([436178, 1647429], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2018)");
+  updateColorScale([447382, 1689746], ['#df0c0c','#36df0c'], "Mean House Value 2014-2018 ($ 2020)");
   popup.remove();
 }
 
@@ -392,7 +392,7 @@ layers.appendChild(link2014_18);
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 var colorScale = d3.scaleLinear()
-  	.domain([126520, 260567])
+  	.domain([129770,  267260])
   	.range(['#df0c0c','#36df0c']);
 
      // append a defs (for definition) element to your SVG
@@ -430,7 +430,7 @@ svgLegend.append("text")
   .attr("x", 0)
   .attr("y", 15)
   .style("text-anchor", "left")
-  .text("Mean House Value 1970 ($ 2018)");
+  .text("Mean House Value 1970 ($ 2020)");
 
 // draw the rectangle and fill with gradient
 svgLegend.append("rect")
@@ -442,7 +442,7 @@ svgLegend.append("rect")
 
 //create tick marks
 var xLeg = d3.scaleLinear()
-  .domain([126520, 260567])
+  .domain([129770,  267260])
   .range([20, 300])
   ;
 
