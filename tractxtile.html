@@ -155,7 +155,7 @@ for (let y in years) {
 }
 
   //----------------------------------------------------------------
-var colorScale = d3.scaleThreshold()
+var colorScale = d3.scaleOrdinal()
   	.domain([0, 5, 10, 25, 50, 75, 90, 95])
   	.range(['#ff0000', '#e54000', '#ca5800',
             '#af6600', '#927000', '#737700',
@@ -180,7 +180,7 @@ let x = 10;
 let width = -1;
 for (let i = 0; i < colorScale.domain().length; i++) {
   console.log("c: " + String(colorScale.domain()[i]));
-  console.log("c: " + String(colorScale.domain()[i+1]));
+  console.log("c + 1: " + String(colorScale.domain()[i+1]));
 
   if (i == colorScale.domain().length - 1) {
     console.log("end")
@@ -200,6 +200,7 @@ for (let i = 0; i < colorScale.domain().length; i++) {
 
   x = x + width;
 }
+
 
 //create tick marks
 var xLeg = d3.scaleLinear()
