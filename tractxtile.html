@@ -99,79 +99,121 @@ center: [-100, 40], // starting position [lng, lat]
 zoom: 3
 });
 
-var link = document.createElement('a');
-link.href = '#';
-link.className = 'active';
-link.textContent = '1970';
-link.onclick = function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  this.className = 'active';
-  link1.className='', link2.className='', link3.className='', link4.className='';
 
+const years = [1970, 1980, 1990, 2000, 2010, 2016];
+var links = {};
+for (let y in years) {
+  console.log(years[y]);
+  var link = document.createElement('a');
+  link.href = '#';
+  if (years[y] == 1970) {
+      link.className = 'active';
+  }
+  link.textContent = String(years[y]);
 
-  map.setPaintProperty('tractxtile', 'fill-color',
-    [
-    "step",
-      ["get", "pvalgrp1970"],
-      "hsla(0, 100%, 50%, 0.82)",
-      2,
-      "hsla(17, 100%, 45%, 0.82)",
-      3,
-      "hsla(26, 100%, 40%, 0.82)",
-      4,
-      "hsla(35, 100%, 34%, 0.82)",
-      5,
-      "hsla(46, 100%, 29%, 0.82)",
-      6,
-      "hsla(62, 100%, 23%, 0.82)",
-      7,
-      "hsla(82, 100%, 25%, 0.82)",
-      8,
-      "hsla(120, 100%, 25%, 0.82)"
-    ]
-  );
-}
-var layers = document.getElementById('menu');
-layers.appendChild(link);
+  link.onclick = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-var link1 = document.createElement('a');
-link1.href = '#';
-link1.textContent = '1980';
-link1.onclick = function (e) {
-  e.preventDefault();
-  e.stopPropagation();
+    // Turn off all buttons
+    var buttons = document.getElementsByClassName("a")
+    for (let b in links) {
+      links[b].className='';
+    }
 
-  this.className = 'active';
-  link.className='';
-  link2.className='';
-  link3.className='';
-  map.setPaintProperty('tracts-panel', 'fill-color',
-  [
-  "step",
-    ["get", "pvalgrp1980"],
-    "hsla(0, 100%, 50%, 0.82)",
-    2,
-    "hsla(17, 100%, 45%, 0.82)",
-    3,
-    "hsla(26, 100%, 40%, 0.82)",
-    4,
-    "hsla(35, 100%, 34%, 0.82)",
-    5,
-    "hsla(46, 100%, 29%, 0.82)",
-    6,
-    "hsla(62, 100%, 23%, 0.82)",
-    7,
-    "hsla(82, 100%, 25%, 0.82)",
-    8,
-    "hsla(120, 100%, 25%, 0.82)"
-  ]
-  );
+    // Turn on clicked button
+    this.className = 'active';
 
+    let varfill = "pvalgrp" + String(years[y]);
+    map.setPaintProperty('tractxtiles', 'fill-color',
+      [
+      "step",
+        ["get", varfill],
+        "hsla(0, 100%, 50%, 0.82)",
+        2,
+        "hsla(17, 100%, 45%, 0.82)",
+        3,
+        "hsla(26, 100%, 40%, 0.82)",
+        4,
+        "hsla(35, 100%, 34%, 0.82)",
+        5,
+        "hsla(46, 100%, 29%, 0.82)",
+        6,
+        "hsla(62, 100%, 23%, 0.82)",
+        7,
+        "hsla(82, 100%, 25%, 0.82)",
+        8,
+        "hsla(120, 100%, 25%, 0.82)"
+      ]
+      );
+  }
+
+  var layers = document.getElementById('menu');
+  layers.appendChild(link);
+
+  links[link + String(years[y])] = link;
 }
 
-var layers = document.getElementById('menu');
-layers.appendChild(link1);
+  //----------------------------------------------------------------
+var colorScale = d3.scaleThreshold()
+  	.domain([0, 5, 10, 25, 50, 75, 90, 95])
+  	.range(['#ff0000', '#e54000', '#ca5800',
+            '#af6600', '#927000', '#737700',
+            '#4f7d00', '#008000']);
+
+     // append a defs (for definition) element to your SVG
+var svgLegend = d3.select('#var-legend').append('svg')
+    .attr("width",600);
+
+var defs = svgLegend.append('defs');
+
+// append title
+svgLegend.append("text")
+  .attr("class", "legendTitle")
+  .attr("x", 0)
+  .attr("y", 15)
+  .style("text-anchor", "left")
+  .text("Census Tract House Value Percentiles");
+
+// draw the rectangles filled with colorblocks
+let x = 10;
+let width = -1;
+for (let i = 0; i < colorScale.domain().length; i++) {
+  console.log("c: " + String(colorScale.domain()[i]));
+  console.log("c: " + String(colorScale.domain()[i+1]));
+
+  if (i == colorScale.domain().length - 1) {
+    console.log("end")
+    width = 15;
+  }
+  else {
+    width = (colorScale.domain()[i+1] - colorScale.domain()[i])*3;
+  }
+  console.log(width);
+
+  svgLegend.append("rect")
+  .attr("x", x)
+  .attr("y", 25)
+  .attr("width", width)
+  .attr("height", 15)
+  .style("fill", colorScale(colorScale.domain()[i]));
+
+  x = x + width;
+}
+
+//create tick marks
+var xLeg = d3.scaleLinear()
+  .domain([0, 100])
+  .range([10, 310]);
+
+var axisLeg = d3.axisBottom(xLeg)
+  .tickValues([0, 5, 10, 25, 50, 75, 90, 95, 100])
+
+svgLegend
+  .attr("class", "axis")
+  .append("g")
+  .attr("transform", "translate(0, 41)")
+  .call(axisLeg);
 
 </script>
 
