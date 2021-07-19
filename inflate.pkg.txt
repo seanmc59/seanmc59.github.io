@@ -1,0 +1,5 @@
+v 3
+d inflate. inflate variables to real dollars.
+d S.E. McCulloch, Brown University.
+f inflate.ado
+f sample.dta
