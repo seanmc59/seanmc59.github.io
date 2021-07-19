@@ -1,5 +1,5 @@
 v 3
-d inflate. inflate variables to real dollars.
-d S.E. McCulloch, Brown University.
+d inflate. Inflate variables to real dollars using CPI-U.
+d Sean McCulloch, Brown University <sean_mcculloch@brown.edu>.
 f inflate.ado
-f sample.dta
+f cpi.dta
