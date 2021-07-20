@@ -18,7 +18,7 @@ prog define inflate
 	keepcpi  												 ///
 	update cpicheck]	
 	
-	local inflatepath  "`c(sysdir_plus)'/i/"	
+	local inflatepath  "`c(sysdir_plus)'/i/"
 	
 	*-----------------
 	*Redownload CPI using FRED API
@@ -26,12 +26,16 @@ prog define inflate
 	if "`update'" == "update" {				
 		disp "Importing CPI from FRED API to `update_path'/cpi.dta"
 		
+		inflateopencpiframe // Open cpi
 		inflateimportfred, update_path(`inflatepath')
+		frame drop cpi // Close cpi
+
 		exit
 	} 
 	
 	if "`cpicheck'" == "cpicheck" {
-		di "cpicheck will clear dataset in memory is this ok (Y/N)?", _request(check)
+		di "option cpicheck will clear dataset in memory. Is this ok (Y/N)?", ///
+		_request(check)
 		if "$check" == "Y" {
 			di "continue..."
 		}
@@ -51,7 +55,7 @@ prog define inflate
 	}
 	
 	loc numvars: word count `varlist'
-	di "`numvars'"
+	
 	if `numvars' > 1 & "`generate'" != "" {
 	    di as error "Can only use generate() option when inflating a single variable"
 		exit 
@@ -75,7 +79,7 @@ prog define inflate
 	foreach v of loc genvars {
 	   cap confirm var `v'
 	   if _rc == 0 {
-	       di as error "inflate requires that `genvars' are not already in the dataset."
+	       di as error "inflate requires that variables `genvars' are not already in the dataset."
 		   exit 110
 	   }
 	}
@@ -118,7 +122,7 @@ prog define inflate
 	
 	if "`start'" != "" & "`start_timep'" != "`end_timep'" {
 		di as error "Start and end time periods are not consistent, e.g. year versus quarter." 
-		di as error "You specified starting time period as: `start_timep' and the end as: `end_timep'. Is this correct? (Y/N)", _request(check)
+		di as error "You specified starting time period as `start_timep' and the end as `end_timep'. Is this correct? (Y/N)", _request(check)
 		if "$check" == "Y" {
 			di "continue..."
 		}
@@ -128,8 +132,7 @@ prog define inflate
 	}
 	*---------	
 	*Load cpi into separate frame in memory
-	cap frame drop cpi
-	frame create cpi
+	inflateopencpiframe // Open cpi
 	frame cpi: use "`inflatepath'/cpi.dta"
 	 
 	*Retrieve relevant CPI values for end [and start] time period[s]
@@ -137,7 +140,6 @@ prog define inflate
 	assert r(N) == 1
 	gen end_cpi = r(mean)
 		
-	*----------------------------------
 	*If simple start year adjust based on individual time period values
 	if "`start'" != "" {
 		frame cpi: qui: sum CPIAUCNS if `start_cond'
@@ -185,8 +187,11 @@ prog define inflate
 		drop mergekeycpi
 	}
 	
+	*Close cpi frame
+	frame drop cpi // Close
+	
 	*----------------------------
-	*Make inflated variable
+	*Make inflated variables
 	gen inflator = end_cpi / start_cpi
 	foreach v of loc varlist {
 		di "Inflating `v'..."
@@ -220,13 +225,29 @@ prog define inflate
 	}
 end
 *-----------------------------------------------
+cap prog drop inflateopencpiframe
+prog define inflateopencpiframe
+	*----------------
+	*Check cpi frame does not already exist in memory, then make cpi frame 
+	cap frame create cpi 
+	if _rc != 0 {
+		di "inflate will drop existing cpi frame from memory is this alright (Y/N)?", ///
+		_request(check)
+		if "$check" == "Y" {
+			di "continue..."
+			frame drop cpi 
+			frame create cpi
+		}
+		else {
+			exit 
+		}
+	}
+end
+
 cap prog drop inflateimportfred
 prog define inflateimportfred
 	syntax[anything], update_path(string)
-	
-	cap frame drop cpi
-	frame create cpi
-	
+		
 	set fredkey "fac8368a12042554dda13f9b6bdfa61a" // need to check what cap is on FRED API queries
 	*Load CPI into separate frame in memory
 	frame cpi { 
@@ -279,8 +300,7 @@ prog define inflateimportfred
 	}
 end 
 
-
-*Parse inputted date and output if conditions for cpi
+*Parse inputted date and output if conditions to retrieve cpi
 cap prog drop inflateparsedate
 prog define inflateparsedate, rclass
 	syntax[anything], date(string) startend(string)
@@ -340,7 +360,9 @@ prog define inflateparsedate, rclass
 		
 	}
 	else {
-		di as error `"`startend' date not formatted as expected. Try "YYYYTPP" format where YYYY is the year, T = H, Q, or M, and PP are the half, quarter, or month, e.g. February 1975 would be "1975M02""'
+		di as error `"`startend' date not formatted as expected. Dates should be entered as a year or year-half/quarter/month."'
+		di as error `"Example: for the year 2020 enter just "2020"."'
+		di as error `"Example: for February, 1975 enter "1975M02" or "1975M2"."'
 		exit 197
 	}
 	
