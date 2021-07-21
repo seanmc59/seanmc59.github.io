@@ -54,7 +54,8 @@
 {title:Description}
 
 {pstd}
-{cmd:inflate} is a one-line command to inflate (or deflate) variables from any year to any other year based on the annual average Consumer Price Index All Urban, All Items U.S. City Average. {cmd:inflate} adjusts to the year specified in {cmd:end(}{it:{help int:int}}{cmd:)} using either a constant starting year in {opth start(int)} or a year variable that can change across observations in {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
+{cmd:inflate} is a one-line command to inflate (or deflate) variables from any year to any other year based on the annual average Consumer Price Index All Urban, All Items U.S. City Average. {cmd:inflate} adjusts to the year specified in 
+{cmd:end(}{it:{help int:int}}{cmd:)} using either a constant starting year in {opth start(int)} or a year variable that can change across observations in {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
 
 {pstd}
 By default, {cmd:inflate} generates a new inflated variable suffixed with "_real."
