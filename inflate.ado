@@ -1,5 +1,5 @@
 *inflate command: inflates to real dollars using the all urban cpi
-*7/18/21 Sean McCulloch <sean_mcculloch@brown.edu> 
+*7/21/21 Sean McCulloch <sean_mcculloch@brown.edu> 
 
 cap prog drop inflate
 prog define inflate
@@ -54,22 +54,27 @@ prog define inflate
 		exit
 	}
 	
-	loc numvars: word count `varlist'
-	
-	if `numvars' > 1 & "`generate'" != "" {
-	    di as error "Can only use generate() option when inflating a single variable"
-		exit 
-	}
-	
 	if "`end'" == "" {
 		di as error "Option end() required."
 		exit
 	}
 	
+	loc numvars: word count `varlist' // used later loop through/inflate variables 
+	
 	*Check variable names not already taken
 	loc genvars start_cpi end_cpi inflator 
 	if 	"`generate'" != "" {
-		loc genvars `genvars' `generate'
+		loc numgenvars: word count `generate'
+		*Also check number of variables in varlist = number of varnames in gen
+		cap assert `numvars' == `numgenvars'
+		if _rc != 0 {
+			di as error "number of variable names in generate() != number of variables to inflate"
+			exit
+		}
+		
+		foreach g of loc generate {
+			loc genvars `genvars' `g'
+		}
 	} 
 	else {
 	    foreach v of loc varlist {
@@ -83,7 +88,7 @@ prog define inflate
 		   exit 110
 	   }
 	}
-	*------
+	*-----------
 	if "`start'" == "" & "`year'" == "" {
 		di as error "option start() or year() required"
 		exit
@@ -138,13 +143,13 @@ prog define inflate
 	*Retrieve relevant CPI values for end [and start] time period[s]
 	frame cpi: qui: sum CPIAUCNS if `end_cond'
 	assert r(N) == 1
-	gen end_cpi = r(mean)
+	gen end_cpi = r(mean) `if' `in'
 		
 	*If simple start year adjust based on individual time period values
 	if "`start'" != "" {
 		frame cpi: qui: sum CPIAUCNS if `start_cond'
 		assert r(N) == 1
-		gen start_cpi = r(mean)
+		gen start_cpi = r(mean) `if' `in'
 	}
 	*-----------------------------
 	*For multiple time period datasets merge with cpi data and inflate 
@@ -182,7 +187,7 @@ prog define inflate
 		
 		di "frlink m:1 `merge_vars', frame(cpi)"
 		frlink m:1 `merge_vars', frame(cpi) gen(mergekeycpi)
-		frget start_cpi = CPIAUCNS, from(mergekeycpi)
+		frget start_cpi = CPIAUCNS `if' `in', from(mergekeycpi)
 		*----
 		drop mergekeycpi
 	}
@@ -192,20 +197,25 @@ prog define inflate
 	
 	*----------------------------
 	*Make inflated variables
-	gen inflator = end_cpi / start_cpi
-	foreach v of loc varlist {
+	gen inflator = end_cpi / start_cpi `if' `in'
+	
+	forvalues i = 1(1)`numvars' {
+		loc v: word `i' of `varlist'
 		di "Inflating `v'..."
+		
 		if 	"`generate'" != "" {
-			gen `generate' = `v'*inflator  
-			label var `generate' "`v' in real `end' $" 
-			order `generate', after(`v')
+			loc g: word `i' of `generate'
+			
+			gen `g' = `v'*inflator `if' `in'  
+			label var `g' "`v' in real `end' $" 
+			order `g', after(`v')
 		} 
 		else if "`replace'" == "replace" {
-			replace `v' = `v'*inflator
+			replace `v' = `v'*inflator `if' `in'
 			label var `v' "`v' in real `end' $" 
 		}
 		else {
-			gen `v'_real = `v'*inflator  
+			gen `v'_real = `v'*inflator `if' `in' 
 			label var `v'_real "`v' in real `end' $" 
 			order `v'_real, after(`v')
 		}
