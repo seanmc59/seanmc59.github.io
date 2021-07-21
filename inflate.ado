@@ -23,7 +23,7 @@ prog define inflate
 	*-----------------
 	*Download CPI using FRED API if dta file does not exist or update specified
 	cap confirm file "`inflatepath'/cpi.dta" 
-	if _rc != 0 | "`update'" == "update" {				
+	if ((_rc != 0) | ("`update'" == "update")) {				
 		disp "Importing CPI from FRED API to `update_path'/cpi.dta"
 		
 		inflateopencpiframe // Open cpi
