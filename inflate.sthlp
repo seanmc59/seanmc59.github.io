@@ -89,7 +89,9 @@ To view your current CPI data file, run:
 
 {dlgtab:Main}
 
-{phang}{cmdab:y:ear(}{it:{varname}}{cmd:)} chooses the year variable used to match with starting CPI values. Inflates each observation to the end() date based on its year in the specified variable. The variable in {cmdab:y:ear(}{it:{varname}}{cmd:)} should be numeric and take values in 1913-current year.
+{phang}{cmdab:y:ear(}{it:{varname}}{cmd:)} chooses the year variable used to match with starting CPI values. 
+Inflates each observation to the end() date based on its year in the specified variable. 
+The variable in {cmdab:y:ear(}{it:{varname}}{cmd:)} should be numeric and take values in 1913-current year.
 
 {phang}{opth start(int)}  chooses a constant starting year as the base for inflation to the date in end(). 
 
