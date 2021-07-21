@@ -92,17 +92,18 @@ To view your current CPI data file, run:
 {phang}{cmdab:y:ear(}{it:{varname}}{cmd:)} chooses the year variable used to match with starting CPI values. 
 Inflates each observation to the end() date based on its year in the specified variable. 
 The variable in {cmdab:y:ear(}{it:{varname}}{cmd:)} should be numeric and take values in 1913-current year.
-{p_end}
 
 {phang}{opth start(int)}  chooses a constant starting year as the base for inflation to the date in end(). 
 
-{pmore} You can also choose a more precise time period as the start date including year-half, year-quarter, or year-month. More precise time periods are inputted as year then the time period type, then which half, quarter, or month. For example, to inflate from July 1985, input 1985M07 or 1985M7.
-{p_end}
+{pmore} You can also choose a more precise time period as the start date including year-half, year-quarter, or year-month. 
+More precise time periods are inputted as year then the time period type, then which half, quarter, or month. 
+For example, to inflate from July 1985, input 1985M07 or 1985M7.
 
 {phang}{opth end(int)}  chooses a constant end year to inflate to.  
 
-{pmore} You can also choose a more precise time period as the end date including year-half, year-quarter, or year-month. More precise time periods are inputted as year then the time period type, then which half, quarter, or month. For example, to inflate to the first quarter of 2021, input 2021Q01 or 2021Q1.
-{p_end}
+{pmore} You can also choose a more precise time period as the end date including year-half, year-quarter, or year-month. 
+More precise time periods are inputted as year then the time period type, then which half, quarter, or month. 
+For example, to inflate to the first quarter of 2021, input 2021Q01 or 2021Q1.
 
 {dlgtab:More Precise Time Periods}
 
