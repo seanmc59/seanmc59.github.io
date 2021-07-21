@@ -74,7 +74,7 @@ By default, {cmd:inflate} generates a new inflated variable suffixed with "_real
 To update the CPI series stored locally to the most recent release, run:
 
 {pmore}
-{cmd:inflate}, update
+{stata inflate, update}
 
 {pstd}
 {cmd:inflate} stores the CPI series in a Stata dta file in {bf:{help sysdir:PLUS}}/i folder. 
@@ -84,7 +84,7 @@ This file contains annual, biannual, and quarterly averages in addition to the m
 To view your current CPI data file, run:
 
 {pmore}
-{cmd:inflate}, cpicheck
+{stata inflate, cpicheck}
 
 {marker options}{...}
 {title:Options}
