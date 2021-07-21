@@ -55,7 +55,8 @@
 
 {pstd}
 {cmd:inflate} is a one-line command to inflate (or deflate) variables from any year to any other year based on the annual average Consumer Price Index All Urban, All Items U.S. City Average. {cmd:inflate} adjusts to the year specified in 
-{cmd:end(}{it:{help int:int}}{cmd:)} using either a constant starting year in {opth start(int)} or a year variable that can change across observations in {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
+{cmd:end(}{it:{help int:int}}{cmd:)} using either a constant starting year in {opth start(int)} or a year variable that can change across observations in {cmdab:y:ear(}{it:{varname}}{cmd:)}. 
+Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
 
 {pstd}
 By default, {cmd:inflate} generates a new inflated variable suffixed with "_real."
@@ -76,7 +77,8 @@ To update the CPI series stored locally to the most recent release, run:
 {cmd:inflate}, update
 
 {pstd}
-{cmd:inflate} stores the CPI series in a Stata dta file in {bf:{help sysdir:PLUS}}/i folder. This file contains annual, biannual, and quarterly averages in addition to the monthly values. 
+{cmd:inflate} stores the CPI series in a Stata dta file in {bf:{help sysdir:PLUS}}/i folder. 
+This file contains annual, biannual, and quarterly averages in addition to the monthly values. 
 
 {phang}
 To view your current CPI data file, run:
@@ -107,15 +109,25 @@ For example, to inflate to the first quarter of 2021, input 2021Q01 or 2021Q1.
 
 {dlgtab:More Precise Time Periods}
 
-{phang}{cmdab:h:alf(}{it:{varname}}{cmd:)} specifies the half variable used to match with starting CPI values. {cmdab:h:alf(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and half values in the specified variables. The variable in {cmdab:h:alf(}{it:{varname}}{cmd:)} should be numeric and take values 1 or 2.
+{phang}{cmdab:h:alf(}{it:{varname}}{cmd:)} specifies the half variable used to match with starting CPI values. 
+{cmdab:h:alf(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. 
+Inflates each observation to the end() date based on its year and half values in the specified variables. 
+The variable in {cmdab:h:alf(}{it:{varname}}{cmd:)} should be numeric and take values 1 or 2.
 
-{phang}{cmdab:q:uarter(}{it:{varname}}{cmd:)} specifies the quarter variable used to match with starting CPI values. {cmdab:q:uarter(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and quarter values in the specified variables. The variable in {cmdab:q:uarter(}{it:{varname}}{cmd:)} should be numeric and take values in 1-4.
+{phang}{cmdab:q:uarter(}{it:{varname}}{cmd:)} specifies the quarter variable used to match with starting CPI values. 
+{cmdab:q:uarter(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. 
+Inflates each observation to the end() date based on its year and quarter values in the specified variables. 
+The variable in {cmdab:q:uarter(}{it:{varname}}{cmd:)} should be numeric and take values in 1-4.
 
-{phang}{cmdab:m:onth(}{it:{varname}}{cmd:)}  specifies the month variable used to match with starting CPI values. {cmdab:m:onth(}{it:{varname}}{cmd:)}  must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and month values in the specified variables. The variable in {cmdab:m:onth(}{it:{varname}}{cmd:)} should be numeric and take values in 1-12.
+{phang}{cmdab:m:onth(}{it:{varname}}{cmd:)}  specifies the month variable used to match with starting CPI values. 
+{cmdab:m:onth(}{it:{varname}}{cmd:)}  must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. 
+Inflates each observation to the end() date based on its year and month values in the specified variables. 
+The variable in {cmdab:m:onth(}{it:{varname}}{cmd:)} should be numeric and take values in 1-12.
 
 {dlgtab:Variable Creation}
 
-{phang}{cmdab:gen:erate(}{it:{varname}}{cmd:)} allows you to specify the new variable names, rather than naming each variable oldvariablename_real.
+{phang}{cmdab:gen:erate(}{it:{varname}}{cmd:)} allows you to specify the new variable names, 
+rather than naming each variable oldvariablename_real.
 
 {phang}{opt replace} replaces the current variable with an inflated version, dropping the original variable.
 
@@ -123,7 +135,8 @@ For example, to inflate to the first quarter of 2021, input 2021Q01 or 2021Q1.
 
 {dlgtab:CPI Data}
 
-{phang}{opt update} updates the CPI series to the most recent FRED release using their API. Replaces CPI data in the {bf:{help sysdir:PLUS}}/i folder.
+{phang}{opt update} updates the CPI series to the most recent FRED release using their API. 
+Replaces CPI data in the {bf:{help sysdir:PLUS}}/i folder.
 
 {phang}{opt checkcpi} opens the local CPI data that {cmd:inflate} is using in the current Stata session.
 
