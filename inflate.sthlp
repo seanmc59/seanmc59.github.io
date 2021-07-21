@@ -1,6 +1,11 @@
 {smcl}
-{* *! version 1.0.0  7/19/21}{...}
-{vieweralsosee "inflate" "help inflate"}{...}
+{* *! version 1.0.0  7/21/21}{...}
+
+{vieweralsosee "import fred" "help import fred"}{...}
+{vieweralsosee "freduse" "help freduse"}{...}
+{vieweralsosee "cpigen" "help cpigen"}{...}
+{vieweralsosee "cpiget" "help cpiget"}{...}
+
 {viewerjumpto "Syntax" "inflate##syntax"}{...}
 {viewerjumpto "Description" "inflate##description"}{...}
 {viewerjumpto "Updating the CPI series" "inflate##updatecpi"}{...}
@@ -8,6 +13,7 @@
 {viewerjumpto "Examples" "inflate##examples"}{...}
 {viewerjumpto "Author" "inflate##author"}{...}
 {viewerjumpto "Acknowledgements" "inflate##acknowledgements"}{...}
+{viewerjumpto "Also See" "inflate##alsosee"}{...}
 {title:Title}
 
 {pstd}
@@ -43,14 +49,14 @@
 {synopt :{opt keepcpi}}keeps cpi values and multiplier used to inflate the variables {p_end}
 
 {syntab : CPI Data}
-{synopt :{opt update}}updates CPI to most recent release from FRED {p_end}
+{synopt :{opt update}}updates CPI data to most recent release from FRED {p_end}
 {synopt :{opt cpicheck}}opens the current CPI data file stored {p_end}
 
 {marker description}{...}
 {title:Description}
 
 {pstd}
-{cmd:inflate} is a one-line command to inflate (or deflate) variables from any year to any other year based on the Consumer Price Index All Urban, All Items U.S. City Average. {cmd:inflate} adjusts to the year specified in option end() using either the constant starting year in start() or a year variable that can change across observations in year(). Inflation is according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
+{cmd:inflate} is a one-line command to inflate (or deflate) variables from any year to any other year based on the annual average Consumer Price Index All Urban, All Items U.S. City Average. {cmd:inflate} adjusts to the year specified in option end() using either a constant starting year in start() or a year variable that can change across observations in year(). Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
 
 {pstd}
 By default, {cmd:inflate} generates a new inflated variable suffixed with "_real."
@@ -74,7 +80,7 @@ To update the CPI series stored locally to the most recent release, run:
 {cmd:inflate} stores the CPI series in a Stata dta file in {bf:{help sysdir:PLUS}}/i folder. This file contains annual, biannual, and quarterly averages in addition to the monthly values. 
 
 {phang}
-To view your current cpi data file, run:
+To view your current CPI data file, run:
 
 {pmore}
 {cmd:inflate}, cpicheck
@@ -84,10 +90,9 @@ To view your current cpi data file, run:
 
 {dlgtab:Main}
 
-{phang}{cmdab:y:ear(}{it:{varname}}{cmd:)} chooses the year variable used to match with starting CPI values. Inflates each observation to the end() date based on its year in the specified variable. 
+{phang}{cmdab:y:ear(}{it:{varname}}{cmd:)} chooses the year variable used to match with starting CPI values. Inflates each observation to the end() date based on its year in the specified variable. The variable in {cmdab:y:ear(}{it:{varname}}{cmd:)} should be numeric and take values in 1913-current year.
 
-
-{phang}{opth start(int)}  chooses a constant starting year as the base for inflation to end(). 
+{phang}{opth start(int)}  chooses a constant starting year as the base for inflation to the date in end(). 
 
 {pmore} You can also choose a more precise time period as the start date including year-half, year-quarter, or year-month. More precise time periods are inputted as year then the time period type, then which half, quarter, or month. For example, to inflate from July 1985, input 1985M07 or 1985M7.
 
@@ -97,11 +102,11 @@ To view your current cpi data file, run:
 
 {dlgtab:More Precise Time Periods}
 
-{phang}{cmdab:h:alf(}{it:{varname}}{cmd:)} specifies the half variable used to match with starting CPI values. {cmdab:h:alf(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and half values in the specified variables.
+{phang}{cmdab:h:alf(}{it:{varname}}{cmd:)} specifies the half variable used to match with starting CPI values. {cmdab:h:alf(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and half values in the specified variables. The variable in {cmdab:h:alf(}{it:{varname}}{cmd:)} should be numeric and take values 1 or 2.
 
-{phang}{cmdab:q:uarter(}{it:{varname}}{cmd:)} specifies the quarter variable used to match with starting CPI values. {cmdab:q:uarter(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and quarter values in the specified variables.
+{phang}{cmdab:q:uarter(}{it:{varname}}{cmd:)} specifies the quarter variable used to match with starting CPI values. {cmdab:q:uarter(}{it:{varname}}{cmd:)} must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and quarter values in the specified variables. The variable in {cmdab:q:uarter(}{it:{varname}}{cmd:)} should be numeric and take values in 1-4.
 
-{phang}{cmdab:m:onth(}{it:{varname}}{cmd:)}  specifies the month variable used to match with starting CPI values. {cmdab:m:onth(}{it:{varname}}{cmd:)}  must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and month values in the specified variables.
+{phang}{cmdab:m:onth(}{it:{varname}}{cmd:)}  specifies the month variable used to match with starting CPI values. {cmdab:m:onth(}{it:{varname}}{cmd:)}  must be used in combination with {cmdab:y:ear(}{it:{varname}}{cmd:)}. Inflates each observation to the end() date based on its year and month values in the specified variables. The variable in {cmdab:m:onth(}{it:{varname}}{cmd:)} should be numeric and take values in 1-12.
 
 {dlgtab:Variable Creation}
 
@@ -123,29 +128,32 @@ To view your current cpi data file, run:
 {marker example_binning}{...}
 {pstd}{bf:Example 1: One variable with a constant start year}
 
-{pstd}Plot the percentage of the population that are small children in each state.{p_end}
-{phang2}. {stata gen babyperc=poplt5/pop*100}{p_end}
-{phang2}. {stata maptile babyperc, geo(state)}{p_end}
+{pstd}Load NLSW 1988 Data.{p_end}
+{phang2}. {stata sysuse nlsw88}{p_end}
 
-{pstd}Small children are most common in the Western US.
-But the bin of states with the highest percentage of children is much higher than the other 5 bins.{p_end}
+{pstd}Inflate the hourly wage from 1988 to 2020 $.{p_end}
+{phang2}. {stata inflate wage, start(1988) end(2020)}{p_end}
 
-{pstd}Try coloring each bin proportionally to its median value.{p_end}
-{phang2}. {stata maptile babyperc, geo(state) propcolor}{p_end}
-{phang2}. {stata matrix list r(midpoints)}{p_end}
+{pstd}There is now an inflated wage variable called wage_real in the dataset ordered after the original variable.{p_end}
 
-{pstd}Most US states have a fairly similar proportion of children, but the highest group stands out.{p_end}
+{pstd}To do the same thing but keep the CPI values used: {p_end}
+{phang2}. {stata drop wage_real}{p_end}
+{phang2}. {stata inflate wage, start(1988) end(2020) keepcpi}{p_end}
 
-{pstd}Instead of grouping the states into quantile bins, now try coloring states individually and displaying a full spectrum in the legend.{p_end}
-{phang2}. {stata maptile babyperc, geo(state) spopt(legstyle(3)) cutvalues(5(0.5)13)}{p_end}
+{pstd}{bf:Example 2: Multiple variables, inflate on year() and month()}
 
-{pstd}The proportion of children is very homogeneous across states, with Utah as a major exception.
-Three other states also stand out a bit from the rest.{p_end}
+{pstd}Install freduse via ssc.{p_end}
+{phang2}. {stata ssc install freduse}{p_end}
 
-{pstd}{bf:Example 2: Multiple variables}
+{pstd}Load monthly time series of the nominal M1 and M2 money stocks from FRED.{p_end}
+{phang2}. {stata freduse M1SL M2SL}{p_end}
 
-{pstd}{bf:Example 3: year() and quarter()}
+{pstd}Make year and month variables.{p_end}
+{phang2}. {stata gen year = year(daten)}{p_end}
+{phang2}. {stata gen month = month(daten)}{p_end}
 
+{pstd}Inflate both series to 2020 $.{p_end}
+{phang2}. {stata inflate M1SL M2SL, year(year) month(month) end(2020)}{p_end}
 
 {marker author}{...}
 {title:Author}
@@ -153,8 +161,22 @@ Three other states also stand out a bit from the rest.{p_end}
 {pstd}Sean McCulloch{p_end}
 {pstd}sean_mcculloch@brown.edu{p_end}
 
-
 {marker acknowledgements}{...}
 {title:Acknowledgements}
 
-{pstd}{cmd:inflate} blah blah.
+{pstd}{cmd:inflate} would not be able to update the CPI series easily without FRED providing the CPI data series in their publicly available API and the functionality of {cmd:import fred}. 
+
+{pstd}
+FRED Citation: U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers: All Items in U.S. City Average [CPIAUCSL], retrieved from FRED, Federal Reserve Bank of St. Louis
+
+{marker alsosee}{...}
+{title:Also See}
+
+{pstd} 
+Built in: {stata "help import fred": import fred}{p_end}
+{pstd} 
+Online: {stata "findit freduse": freduse (on SSC)}{p_end}
+{pstd} 
+Online: {stata "findit cpigen": cpigen (on SSC)}{p_end}
+{pstd}
+Online: {stata "findit cpiget": cpiget (on SSC)}{p_end}
