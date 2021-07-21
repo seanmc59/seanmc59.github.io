@@ -30,6 +30,7 @@ prog define inflate
 		inflateimportfred, update_path(`inflatepath')
 		frame drop cpi // Close cpi
 		
+		*exit if update
 		if  "`update'" == "update" {
 			exit
 		}
