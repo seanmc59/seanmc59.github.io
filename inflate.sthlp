@@ -1,11 +1,9 @@
 {smcl}
 {* *! version 1.0.0  7/21/21}{...}
-
 {vieweralsosee "import fred" "help import fred"}{...}
 {vieweralsosee "freduse" "help freduse"}{...}
 {vieweralsosee "cpigen" "help cpigen"}{...}
 {vieweralsosee "cpiget" "help cpiget"}{...}
-
 {viewerjumpto "Syntax" "inflate##syntax"}{...}
 {viewerjumpto "Description" "inflate##description"}{...}
 {viewerjumpto "Updating the CPI series" "inflate##updatecpi"}{...}
