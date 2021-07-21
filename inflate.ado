@@ -279,7 +279,7 @@ prog define inflateimportfred
 		forvalues i=1(1)3 {
 			loc t: word `i' of `ts'
 			loc tabb: word `i' of `tabbs'
-			disp "`t'"
+			*disp "`t'"
 			preserve 
 			
 			if "`t'" == "year" {
