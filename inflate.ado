@@ -29,8 +29,10 @@ prog define inflate
 		inflateopencpiframe // Open cpi
 		inflateimportfred, update_path(`inflatepath')
 		frame drop cpi // Close cpi
-
-		exit
+		
+		if  "`update'" == "update" {
+			exit
+		}
 	} 
 	
 	if "`cpicheck'" == "cpicheck" {
