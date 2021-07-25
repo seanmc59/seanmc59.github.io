@@ -77,14 +77,14 @@ prog define inflate
 		
 		foreach g of loc generate {
 			*Check variables are numeric
-			confirm numeric `g'
+			confirm numeric variable `g'
 			
 			loc genvars `genvars' `g'
 		}
 	} 
 	else {
 	    foreach v of loc varlist {
-			confirm numeric `v'
+			confirm numeric variable `v'
 			
 		    loc genvars `genvars' `v'_real 
 		}
