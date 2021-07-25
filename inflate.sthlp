@@ -42,7 +42,7 @@
 {synopt :{cmdab:m:onth(}{it:{varname}}{cmd:)}}month variable {p_end}
 
 {syntab : Variable Creation}
-{synopt :{cmdab:gen:erate(}{it:{varname}}{cmd:)}}specify the name of the new inflated variable {p_end}
+{synopt :{cmdab:gen:erate(}{it:{varlist}}{cmd:)}}specify the name of the new inflated variable {p_end}
 {synopt :{opt replace}}replaces variable with the inflated version instead of making a new variable  {p_end}
 {synopt :{opt keepcpi}}keeps cpi values and multiplier used to inflate the variables {p_end}
 
@@ -126,7 +126,7 @@ The variable in {cmdab:m:onth(}{it:{varname}}{cmd:)} should be numeric and take 
 
 {dlgtab:Variable Creation}
 
-{phang}{cmdab:gen:erate(}{it:{varname}}{cmd:)} allows you to specify the new variable names, 
+{phang}{cmdab:gen:erate(}{it:{varlist}}{cmd:)} allows you to specify the new variable names, 
 rather than naming each variable oldvariablename_real.
 
 {phang}{opt replace} replaces the current variable with an inflated version, dropping the original variable.
