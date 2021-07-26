@@ -195,7 +195,13 @@ prog define inflate
 		
 		di "frlink m:1 `merge_vars', frame(cpi)"
 		frlink m:1 `merge_vars', frame(cpi) gen(mergekeycpi)
-		frget start_cpi = CPIAUCNS `if' `in', from(mergekeycpi)
+		frget start_cpi = CPIAUCNS, from(mergekeycpi)
+		
+		*Impose if/in conditions
+		gen inrangvar94850 = 1 `in'
+		replace start_cpi = . `if'
+		replace start_cpi = .  if inrangvar94850 != 1 
+		drop inrangvar94850
 		*----
 		drop mergekeycpi
 	}
