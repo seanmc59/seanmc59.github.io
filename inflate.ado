@@ -266,7 +266,7 @@ cap prog drop inflateimportfred
 prog define inflateimportfred
 	syntax[anything], update_path(string)
 		
-	set fredkey "fac8368a12042554dda13f9b6bdfa61a" // need to check what cap is on FRED API queries
+	set fredkey "fac8368a12042554dda13f9b6bdfa61a"
 	*Load CPI into separate frame in memory
 	frame cpi { 
 		import fred CPIAUCNS, clear	
