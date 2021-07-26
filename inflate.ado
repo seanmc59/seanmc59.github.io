@@ -198,9 +198,11 @@ prog define inflate
 		frget start_cpi = CPIAUCNS, from(mergekeycpi)
 		
 		*Impose if/in conditions
+		gen inifvar39238 = 1 `if'
 		gen inrangvar94850 = 1 `in'
-		replace start_cpi = . `if'
+		replace start_cpi = .  if inifvar39238 != 1
 		replace start_cpi = .  if inrangvar94850 != 1 
+		drop inifvar39238
 		drop inrangvar94850
 		*----
 		drop mergekeycpi
