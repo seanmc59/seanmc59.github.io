@@ -62,6 +62,11 @@ prog define inflate
 		exit
 	}
 	
+	foreach v of loc varlist {
+			*check variables to inflate are numeric
+			confirm numeric variable `v'
+	}
+	
 	loc numvars: word count `varlist' // used later loop through/inflate variables 
 	
 	*Check variable names not already taken
@@ -75,17 +80,12 @@ prog define inflate
 			exit
 		}
 		
-		foreach g of loc generate {
-			*Check variables are numeric
-			confirm numeric variable `g'
-			
+		foreach g of loc generate {			
 			loc genvars `genvars' `g'
 		}
 	} 
 	else {
-	    foreach v of loc varlist {
-			confirm numeric variable `v'
-			
+	    foreach v of loc varlist {			
 		    loc genvars `genvars' `v'_real 
 		}
 	}
