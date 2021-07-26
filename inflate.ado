@@ -1,5 +1,5 @@
 *inflate command: inflates to real dollars using the all urban cpi
-*7/21/21 Sean McCulloch <sean_mcculloch@brown.edu> 
+*2021-07-21 Sean McCulloch <sean_mcculloch@brown.edu> 
 
 cap prog drop inflate
 prog define inflate
@@ -24,7 +24,7 @@ prog define inflate
 	*Download CPI using FRED API if dta file does not exist or update specified
 	cap confirm file "`inflatepath'/cpi.dta" 
 	if ((_rc != 0) | ("`update'" == "update")) {				
-		disp "Importing CPI from FRED API to `update_path'/cpi.dta"
+		disp "Importing CPI from FRED API to `inflatepath'/cpi.dta"
 		
 		inflateopencpiframe // Open cpi
 		inflateimportfred, update_path(`inflatepath')
