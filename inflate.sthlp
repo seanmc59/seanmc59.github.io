@@ -61,7 +61,7 @@
 Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_end / CPI_start or CPI_year). 
 
 {pstd}
-By default, {cmd:inflate} generates a new inflated variable suffixed with "_real."
+By default, {cmd:inflate} generates a new inflated variable suffixed with "_real" ordered after the original variable.
 
 {pstd}
 {cmd:inflate} relies on functionality introduced in Stata 16, specifically frame/frames.
