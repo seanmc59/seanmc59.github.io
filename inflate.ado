@@ -37,7 +37,7 @@ prog define inflate
 	} 
 	
 	if "`cpicheck'" == "cpicheck" {
-		di "option cpicheck will clear dataset in memory. Is this ok (Y/N)?", ///
+		di "option cpicheck will clear current working dataset. Is this ok (Y/N)?", ///
 		_request(check)
 		if "$check" == "Y" {
 			di "continue..."
