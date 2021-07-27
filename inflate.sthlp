@@ -149,6 +149,7 @@ Replaces CPI data in the {bf:{help sysdir:PLUS}}/i folder.
 {pstd}{bf:Example 1: One variable with a constant start year}
 
 {pstd}Load NLSW 1988 Data.{p_end}
+{phang2}. {stata clear}{p_end}
 {phang2}. {stata sysuse nlsw88}{p_end}
 
 {pstd}Inflate the hourly wage from 1988 to 2020 $.{p_end}
@@ -163,6 +164,7 @@ Replaces CPI data in the {bf:{help sysdir:PLUS}}/i folder.
 {pstd}{bf:Example 2: Multiple variables, inflate on year() and month()}
 
 {pstd}Install freduse via ssc.{p_end}
+{phang2}. {stata clear}{p_end}
 {phang2}. {stata ssc install freduse}{p_end}
 
 {pstd}Load monthly time series of the nominal M1 and M2 money stocks from FRED.{p_end}
