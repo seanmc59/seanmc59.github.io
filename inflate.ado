@@ -84,8 +84,8 @@ prog define inflate
 			loc genvars `genvars' `g'
 		}
 	}
-	else if "`replace'" != "" {
-	    loc pass
+	else if "`replace'" != "" { 
+		loc pass
 	}
 	else {
 	    foreach v of loc varlist {			
@@ -119,6 +119,20 @@ prog define inflate
 	if (`timeopts' > 1) {
 	    di as error "Can only specify one time period variable to merge on half quarter, month."
 		exit
+	}
+	
+	*Check no if in and replace specified
+	if "`replace'" != "" & "`if'`in'" != "" {
+		di as error "Warning: replace specified with if/in range."
+		di as error "Will inflate some observations but not others. Is this ok (Y/N)?", ///
+		_request(check)
+		
+		if "$check" == "Y" {
+			di "continue..."
+		}
+		else {
+			exit 
+		}
 	}
 	
 	*------------------
