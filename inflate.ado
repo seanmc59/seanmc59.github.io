@@ -83,12 +83,16 @@ prog define inflate
 		foreach g of loc generate {			
 			loc genvars `genvars' `g'
 		}
-	} 
+	}
+	else if "`replace'" != "" {
+	    loc pass
+	}
 	else {
 	    foreach v of loc varlist {			
 		    loc genvars `genvars' `v'_real 
 		}
 	}
+	
 	foreach v of loc genvars {
 	   cap confirm var `v'
 	   if _rc == 0 {
