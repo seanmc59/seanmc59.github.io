@@ -117,7 +117,7 @@ prog define inflate
 		exit
 	}
 	if (`timeopts' > 1) {
-	    di as error "Can only specify one time period variable to merge on half quarter, month."
+	    di as error "Can only specify one time period variable to merge on half, quarter, or month."
 		exit
 	}
 	
