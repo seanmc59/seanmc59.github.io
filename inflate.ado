@@ -1,5 +1,5 @@
 *inflate command: inflates to real dollars using the all urban cpi
-*2021-07-21 Sean McCulloch <sean_mcculloch@brown.edu> 
+*2021-07-28 Sean McCulloch <sean_mcculloch@brown.edu> 
 
 cap prog drop inflate
 prog define inflate
