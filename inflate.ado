@@ -121,7 +121,7 @@ prog define inflate
 		exit
 	}
 	
-	*Check no if in and replace specified
+	*Check if in and replace specified
 	if "`replace'" != "" & "`if'`in'" != "" {
 		di as error "Warning: replace specified with if/in range."
 		di as error "Will inflate some observations but not others. Is this ok (Y/N)?", ///
@@ -211,7 +211,6 @@ prog define inflate
 			frame cpi: rename `t' ``t''
 		}
 		
-		di "frlink m:1 `merge_vars', frame(cpi)"
 		frlink m:1 `merge_vars', frame(cpi) gen(mergekeycpi)
 		frget start_cpi = CPIAUCNS, from(mergekeycpi)
 		
