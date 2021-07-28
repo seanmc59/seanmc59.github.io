@@ -371,21 +371,21 @@ prog define inflateparsedate, rclass
 		
 		if ("`timep'" == "H" | "`timep'" == "h" ) {
 			loc periodvar "half"
-			if `periodnum' > 2 {
+			if `periodnum' < 1 | `periodnum' > 2 {
 				di as error "`startend' half entered out of range."
 				exit 197
 			}
 		} 
 		else if ("`timep'" == "Q" | "`timep'" == "q" ) {
 			loc periodvar "quarter"
-			if `periodnum' > 4 {
+			if `periodnum' < 1 | `periodnum' > 4 {
 				di as error "`startend' quarter entered out of range."
 				exit 197
 			}
 		} 
 		else if ("`timep'" == "M" | "`timep'" == "m" ) {
 			loc periodvar "month"	
-			if `periodnum' > 12 {
+			if `periodnum' < 1 | `periodnum' > 12 {
 				di as error "`startend' month entered out of range."
 				exit 197
 			}
