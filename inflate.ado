@@ -3,6 +3,8 @@
 
 cap prog drop inflate
 prog define inflate
+	version 16
+	
 	syntax [varlist(default=none)] [if] [in] ,  			 ///
 	[end(string)  											 ///  
 	///														 ///
