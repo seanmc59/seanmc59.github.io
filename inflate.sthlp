@@ -17,7 +17,7 @@
 {title:Title}
 
 {pstd}
-{hi:inflate} {hline 2} Inflate variables to real values using the CPI-U series
+{hi:inflate} {hline 2} Inflate variables to real dollars using the CPI-U series
 
 
 {marker syntax}{title:Syntax}
