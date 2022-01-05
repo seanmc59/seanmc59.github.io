@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0.0  2021-07-28}{...}
+{* *! version 1.0.0  2022-01-05}{...}
 {vieweralsosee "import fred" "help import fred"}{...}
 {vieweralsosee "freduse" "help freduse"}{...}
 {vieweralsosee "cpigen" "help cpigen"}{...}
