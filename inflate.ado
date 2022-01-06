@@ -288,7 +288,6 @@ cap prog drop inflateimportfred
 prog define inflateimportfred
 	syntax[anything], update_path(string)
 		
-	*set fredkey "fac8368a12042554dda13f9b6bdfa61a"
 	*Load CPI into separate frame in memory
 	frame cpi { 
 		freduse CPIAUCNS, clear	
