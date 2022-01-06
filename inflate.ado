@@ -288,10 +288,10 @@ cap prog drop inflateimportfred
 prog define inflateimportfred
 	syntax[anything], update_path(string)
 		
-	set fredkey "fac8368a12042554dda13f9b6bdfa61a"
+	*set fredkey "fac8368a12042554dda13f9b6bdfa61a"
 	*Load CPI into separate frame in memory
 	frame cpi { 
-		import fred CPIAUCNS, clear	
+		freduse CPIAUCNS, clear	
 		*U.S. Bureau of Labor Statistics, 
 		*Consumer Price Index for All Urban Consumers: All Items in U.S. City Average [CPIAUCNS], 
 		*retrieved from FRED, Federal Reserve Bank of St. Louis
