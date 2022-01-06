@@ -71,6 +71,7 @@ prog define inflate
 	
 	loc numvars: word count `varlist' // used later loop through/inflate variables 
 	
+	*--------
 	*Check variable names not already taken
 	loc genvars start_cpi end_cpi inflator 
 	if 	"`generate'" != "" {
@@ -94,7 +95,6 @@ prog define inflate
 		    loc genvars `genvars' `v'_real 
 		}
 	}
-	
 	confirm new variable `genvars'
 	
 	*-----------
