@@ -95,9 +95,8 @@ prog define inflate
 		}
 	}
 	
-	foreach v of loc genvars {
-	   confirm new variable `v'
-	}
+	confirm new variable `genvars'
+	
 	*-----------
 	if "`start'" == "" & "`year'" == "" {
 		di as error "option start() or year() required"
