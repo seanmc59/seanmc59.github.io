@@ -96,11 +96,7 @@ prog define inflate
 	}
 	
 	foreach v of loc genvars {
-	   cap confirm var `v'
-	   if _rc == 0 {
-	       di as error "inflate requires that variables `genvars' are not already in the dataset."
-		   exit 110
-	   }
+	   confirm new variable `v'
 	}
 	*-----------
 	if "`start'" == "" & "`year'" == "" {
