@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0.0  2022-01-05}{...}
+{* *! version 1.0.0  2022-01-06}{...}
 {vieweralsosee "import fred" "help import fred"}{...}
 {vieweralsosee "freduse" "help freduse"}{...}
 {vieweralsosee "cpigen" "help cpigen"}{...}
@@ -186,7 +186,7 @@ Replaces CPI data in the {bf:{help sysdir:PLUS}}/i folder.
 {marker acknowledgements}{...}
 {title:Acknowledgements}
 
-{pstd}{cmd:inflate} would not be able to update the CPI series easily without FRED providing the CPI data series in their publicly available API and the functionality of {cmd:import fred}. 
+{pstd}{cmd:inflate} would not be able to update the CPI series easily without FRED providing the CPI data series in their publicly available API and the functionality of David Drukker's {cmd:freduse}. 
 
 {pstd}
 FRED Citation: U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers: All Items in U.S. City Average [CPIAUCSL], retrieved from FRED, Federal Reserve Bank of St. Louis
@@ -210,7 +210,7 @@ Online: {stata "findit cpiget": cpiget (on SSC)}{p_end}
 MIT License
 
 {pstd} 
-Copyright (c) 2021 Sean McCulloch
+Copyright (c) 2022 Sean McCulloch
 
 {pstd} 
 Permission is hereby granted, free of charge, to any person obtaining a copy
