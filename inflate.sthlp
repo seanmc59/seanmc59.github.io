@@ -64,7 +64,7 @@ Inflation is calculated according to the simple formula: newvar = oldvar*(CPI_en
 By default, {cmd:inflate} generates a new inflated variable suffixed with "_real" ordered after the original variable.
 
 {pstd}
-{cmd:inflate} relies on functionality introduced in Stata 16, specifically frame/frames. {cmd:inflate} requires {bf:{help freduse:freduse}} to pull CPI data from the FRED API.
+{cmd:inflate} relies on functionality introduced in Stata 16, specifically frame/frames. {cmd:inflate} requires {bf:{help freduse:freduse}} to pull CPI data from the FRED.
 
 {marker updatecpi}{...}
 {title:Updating the CPI series}
@@ -137,7 +137,7 @@ rather than naming each variable oldvariablename_real.
 
 {dlgtab:CPI Data}
 
-{phang}{opt update} updates the CPI series to the most recent FRED release using their API. 
+{phang}{opt update} updates the CPI series to the most recent FRED release. 
 Replaces CPI data in the {bf:{help sysdir:PLUS}}/i folder.
 
 {phang}{opt checkcpi} opens the local CPI data that {cmd:inflate} is using in the current Stata session.
