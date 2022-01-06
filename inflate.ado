@@ -64,10 +64,8 @@ prog define inflate
 		exit
 	}
 	
-	foreach v of loc varlist {
-			*check variables to inflate are numeric
-			confirm numeric variable `v'
-	}
+	*check variables to inflate are numeric
+	confirm numeric variable `varlist'
 	
 	loc numvars: word count `varlist' // used later loop through/inflate variables 
 	
